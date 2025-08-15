@@ -1,0 +1,83 @@
+name: treasurehunt
+description: "Lost and Found app for college."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # State Management & Local Storage
+  get: ^4.6.6
+  get_storage: ^2.1.1
+
+  # Firebase - Use specific compatible versions
+  firebase_core: ^2.32.0
+  firebase_auth: ^4.20.0
+  cloud_firestore: ^4.17.0
+  firebase_storage: ^11.7.0
+  firebase_messaging: ^14.7.10  # Added for admin notifications
+
+  # Google Sign-In
+  google_sign_in: ^6.2.1
+
+  # Networking
+  dio: ^5.4.3
+
+  # Image Picker & File handling
+  image_picker: ^1.0.4
+  path: ^1.8.3
+
+  # Location Services
+  geolocator: ^10.1.0
+  geocoding: ^2.1.1
+
+  # UI Enhancements
+  google_fonts: ^6.1.0
+  font_awesome_flutter: ^10.6.0
+
+  # Date & Time formatting
+  intl: ^0.19.0
+
+  # Permissions
+  permission_handler: ^11.2.0
+
+  # Cloud Services
+  cloudinary_public: ^0.23.1
+  supabase_flutter: ^2.5.6
+
+  # Web support
+  url_strategy: ^0.2.0
+  url_launcher: ^6.2.2  # Added for WhatsApp functionality
+  share_plus: ^7.2.1    # Added for native sharing functionality
+
+# Local Notifications for Admin
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Comment out assets until you have the actual files
+  # assets:
+  #   - assets/images/*
+  #   - assets/icons/*
+
+  # Comment out fonts until you have the font files
+  # fonts:
+  #   - family: Inter
+  #     fonts:
+  #       - asset: assets/fonts/Inter-Regular.ttf
+  #       - asset: assets/fonts/Inter-Medium.ttf
+  #         weight: 500
+  #       - asset: assets/fonts/Inter-Bold.ttf
+  #         weight: 700

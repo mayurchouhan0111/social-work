@@ -1,0 +1,36 @@
+import 'package:get/get.dart';
+import 'package:treasurehunt/app/bindings/main_nav_binding.dart';
+import 'package:treasurehunt/app/routes/app_routes.dart';
+import 'package:treasurehunt/app/ui/pages/admin/admin_feedback_page.dart';
+import 'package:treasurehunt/app/ui/pages/auth/signin_page.dart';
+import 'package:treasurehunt/app/ui/pages/feedback_report_page.dart';
+import 'package:treasurehunt/app/ui/pages/splash_page.dart';
+import 'package:treasurehunt/app/ui/widgets/bottom_nav_bar.dart';
+
+class AppPages {
+  static final initial = Routes.splash;
+
+  static final pages = [
+    GetPage(
+      name: Routes.splash,
+      page: () => const SplashPage(),
+    ),
+    GetPage(
+      name: Routes.signIn,
+      page: () => const SignInPage(),
+    ),
+    GetPage(
+      name: Routes.mainNav,
+      page: () => const MainNavPage(),
+      binding: MainNavBinding(),
+    ),
+    GetPage(
+      name: Routes.feedbackReport,
+      page: () => FeedbackReportPage(itemId: Get.arguments as String),
+    ),
+    GetPage(
+      name: Routes.adminFeedbacks,
+      page: () => const AdminFeedbackPage(),
+    ),
+  ];
+}

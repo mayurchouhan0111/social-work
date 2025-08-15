@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "689643267252",
+    "project_id": "losthunt-2cf34",
+    "storage_bucket": "losthunt-2cf34.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689643267252:android:b82450d7eb749d9533a3e1",
+        "android_client_info": {
+          "package_name": "com.example.treasurehunt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRznx5OxmPGnFGusVzrOh8E7ETeNnSSBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
