@@ -4,8 +4,12 @@ import 'package:treasurehunt/app/routes/app_routes.dart';
 import 'package:treasurehunt/app/ui/pages/admin/admin_feedback_page.dart';
 import 'package:treasurehunt/app/ui/pages/auth/signin_page.dart';
 import 'package:treasurehunt/app/ui/pages/feedback_report_page.dart';
+import 'package:treasurehunt/app/ui/pages/signup/sign_up_page.dart';
+import 'package:treasurehunt/app/ui/pages/splash/splash_page.dart';
 import 'package:treasurehunt/app/ui/pages/splash_page.dart';
 import 'package:treasurehunt/app/ui/widgets/bottom_nav_bar.dart';
+
+import '../ui/pages/signin/sign_in_page.dart';
 
 class AppPages {
   static final initial = Routes.splash;
@@ -18,6 +22,10 @@ class AppPages {
     GetPage(
       name: Routes.signIn,
       page: () => const SignInPage(),
+    ),
+    GetPage(
+      name: Routes.signUp,
+      page: () => const SignUpPage(),
     ),
     GetPage(
       name: Routes.mainNav,
