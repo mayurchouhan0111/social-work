@@ -333,11 +333,9 @@ class PostController extends GetxController {
       } else {
         await _foundItemService.postFoundItem(item);
         Get.snackbar('Success', 'Found item posted successfully!');
-      }
-
-      // Navigate back after successful post
-      Get.back();
-    } catch (e) {
+        // Navigate back after successful post
+        Get.back();
+      } } catch (e) {
       Get.snackbar('Error', 'Failed to upload post. Please try again.');
       print("Upload error: $e");
     } finally {

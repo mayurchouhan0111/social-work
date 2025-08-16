@@ -1,5 +1,3 @@
-// lib/controllers/auth_controller.dart
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -137,7 +135,8 @@ class AuthController extends GetxController {
 
   bool isValidEnrollmentNumber(String enrollmentNo) {
     if (enrollmentNo.isEmpty || enrollmentNo.length < 6) return false;
-    RegExp alphanumeric = RegExp(r'^[a-zA-Z0-9]+$');
+    RegExp alphanumeric = RegExp(r'^[a-zA-Z0-9]+'
+    );
     return alphanumeric.hasMatch(enrollmentNo);
   }
 
