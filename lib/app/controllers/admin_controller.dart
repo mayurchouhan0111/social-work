@@ -2,16 +2,21 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:treasurehunt/app/models/user_model.dart';
+import 'package:treasurehunt/app/services/auth_service.dart';
 import '../services/firebase_service.dart';
 
 class AdminController extends GetxController {
   final FirebaseService _firebaseService = Get.find<FirebaseService>();
+  final AuthService _authService = AuthService();
 
   var isLoading = false.obs;
   var pendingPosts = <DocumentSnapshot>[].obs;
   var allPosts = <DocumentSnapshot>[].obs;
+  var unverifiedUsers = <UserModel>[].obs;
   var pendingCount = 0.obs;
-  var selectedTab = 0.obs; // 0: Pending, 1: All Posts
+  var unverifiedUsersCount = 0.obs;
+  var selectedTab = 0.obs; // 0: Pending Posts, 1: All Posts, 2: Users
 
   @override
   void onInit() {
@@ -19,6 +24,66 @@ class AdminController extends GetxController {
     print('AdminController initialized');
     loadPendingPosts();
     loadAllPosts();
+    loadUnverifiedUsers();
+  }
+
+  void loadUnverifiedUsers() async {
+    print('Loading unverified users...');
+    try {
+      final users = await _authService.getUnverifiedUsers();
+      unverifiedUsers.value = users;
+      unverifiedUsersCount.value = users.length;
+      print('Unverified users loaded: ${users.length}');
+    } catch (e) {
+      print('Exception in loadUnverifiedUsers: $e');
+    }
+  }
+
+  Future<void> approveUser(String userId) async {
+    print('Approving user: $userId');
+    isLoading.value = true;
+    try {
+      final result = await _authService.verifyUser(userId, true);
+      if (result) {
+        Get.snackbar(
+          'Success',
+          'User approved successfully',
+          backgroundColor: const Color(0xFF1A1A1A),
+          colorText: Colors.white,
+          icon: const Icon(Icons.check_circle, color: Colors.green),
+        );
+        loadUnverifiedUsers(); // Refresh the list
+      } else {
+        Get.snackbar(
+          'Error',
+          'Failed to approve user',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      print('Error approving user: $e');
+      Get.snackbar(
+        'Error',
+        'An error occurred: $e',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> rejectUser(String userId) async {
+    print('Rejecting user: $userId');
+    // NOTE: Implement user deletion or rejection logic in AuthService
+    // For now, we'll just show a message.
+    Get.snackbar(
+      'Info',
+      'User rejection functionality to be implemented.',
+      backgroundColor: Colors.amber,
+      colorText: Colors.black,
+    );
   }
 
   void loadPendingPosts() {
@@ -330,6 +395,7 @@ class AdminController extends GetxController {
     print('=== Force Refresh Admin Data ===');
     loadPendingPosts();
     loadAllPosts();
+    loadUnverifiedUsers();
     print('Force refresh complete');
   }
 }

@@ -52,7 +52,7 @@ class MainNavController extends GetxController {
     print('Is admin: ${isAdmin.value}');
 
     // Validate index range
-    final maxIndex = isAdmin.value ? 3 : 2;
+    final maxIndex = isAdmin.value ? 4 : 2;
     print('Max allowed index: $maxIndex');
 
     if (index >= 0 && index <= maxIndex) {
@@ -71,7 +71,7 @@ class MainNavController extends GetxController {
   void navigateToAdmin() {
     print('Navigate to admin called, isAdmin: ${isAdmin.value}');
     if (isAdmin.value) {
-      changeTab(3); // Use changeTab method for consistency
+      changeTab(2); // Use changeTab method for consistency
     } else {
       print('User is not admin, cannot navigate to admin panel');
     }
@@ -83,7 +83,7 @@ class MainNavController extends GetxController {
     checkAdminStatus();
 
     // Reset to valid tab if current tab becomes invalid
-    final maxIndex = isAdmin.value ? 3 : 2;
+    final maxIndex = isAdmin.value ? 4 : 2;
     if (currentIndex.value > maxIndex) {
       print('Current tab invalid, resetting to home');
       currentIndex.value = 0;

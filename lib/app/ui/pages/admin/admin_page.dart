@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:treasurehunt/app/models/user_model.dart';
 import '../../../app_theme.dart';
 import '../../../controllers/admin_controller.dart';
 import '../../../routes/app_routes.dart';
@@ -63,7 +64,7 @@ class AdminPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "Review, moderate and manage all posts",
+                    "Review, moderate and manage all posts and users",
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       color: const Color(0xFF9E9E9E),
@@ -167,7 +168,7 @@ class AdminPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  "Pending (${controller.pendingCount.value})",
+                  "Pending Posts (${controller.pendingCount.value})",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     fontSize: 14,
@@ -205,6 +206,31 @@ class AdminPage extends StatelessWidget {
               ),
             ),
           ),
+          Expanded(
+            child: GestureDetector(
+              onTap: () => controller.changeTab(2),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: controller.selectedTab.value == 2
+                      ? AppTheme.primaryColor
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  "Users (${controller.unverifiedUsersCount.value})",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: controller.selectedTab.value == 2
+                        ? Colors.white
+                        : const Color(0xFF9E9E9E),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     ));
@@ -228,7 +254,7 @@ class AdminPage extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Text(
-            "${controller.pendingCount.value} Pending",
+            "${controller.pendingCount.value} Pending Posts",
             style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -244,10 +270,174 @@ class AdminPage extends StatelessWidget {
     return Obx(() {
       if (controller.selectedTab.value == 0) {
         return _buildPendingContent(controller);
-      } else {
+      } else if (controller.selectedTab.value == 1) {
         return _buildAllPostsContent(controller);
+      } else {
+        return _buildUsersContent(controller);
       }
     });
+  }
+
+  Widget _buildUsersContent(AdminController controller) {
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return _buildLoadingState();
+      }
+
+      if (controller.unverifiedUsers.isEmpty) {
+        return _buildEmptyState(message: "No unverified users found.");
+      }
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Unverified Users",
+            style: GoogleFonts.inter(
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 24),
+          ...controller.unverifiedUsers.map((user) {
+            return _buildUserCard(controller, user);
+          }).toList(),
+        ],
+      );
+    });
+  }
+
+  Widget _buildUserCard(AdminController controller, UserModel user) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.orange.withOpacity(0.3), width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                user.name ?? 'No Name',
+                style: GoogleFonts.inter(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () => _showIdCard(user.identityCardImageUrl ?? ''),
+                icon: const Icon(Icons.credit_card, color: AppTheme.primaryColor),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            user.email,
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              color: const Color(0xFF9E9E9E),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Enrollment: ${user.enrollmentNumber ?? 'N/A'}',
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              color: const Color(0xFF9E9E9E),
+            ),
+          ),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => controller.approveUser(user.id),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const FaIcon(FontAwesomeIcons.check, size: 16, color: Colors.white),
+                      const SizedBox(width: 8),
+                      Text(
+                        "Approve",
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => controller.rejectUser(user.id),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    side: const BorderSide(color: Colors.red),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const FaIcon(FontAwesomeIcons.xmark, size: 16, color: Colors.red),
+                      const SizedBox(width: 8),
+                      Text(
+                        "Reject",
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showIdCard(String imageUrl) {
+    if (imageUrl.isEmpty) {
+      Get.snackbar('Error', 'No ID card image available.');
+      return;
+    }
+    Get.dialog(
+      Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.network(imageUrl),
+        ),
+      ),
+    );
   }
 
   Widget _buildPendingContent(AdminController controller) {
@@ -257,7 +447,7 @@ class AdminPage extends StatelessWidget {
       }
 
       if (controller.pendingPosts.isEmpty) {
-        return _buildEmptyState();
+        return _buildEmptyState(message: "No pending posts to approve.");
       }
 
       return Column(
@@ -285,7 +475,7 @@ class AdminPage extends StatelessWidget {
   Widget _buildAllPostsContent(AdminController controller) {
     return Obx(() {
       if (controller.allPosts.isEmpty) {
-        return _buildEmptyState();
+        return _buildEmptyState(message: "No posts found.");
       }
 
       return Column(
@@ -663,7 +853,7 @@ class AdminPage extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            "Loading posts...",
+            "Loading...",
             style: GoogleFonts.inter(
               fontSize: 16,
               color: const Color(0xFF9E9E9E),
@@ -674,7 +864,7 @@ class AdminPage extends StatelessWidget {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState({String message = "No posts found"}) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -705,7 +895,7 @@ class AdminPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            "No posts found",
+            message,
             style: GoogleFonts.inter(
               fontSize: 16,
               color: const Color(0xFF9E9E9E),

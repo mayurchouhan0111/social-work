@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../../../app_theme.dart';
@@ -199,12 +200,19 @@ class PostPage extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(16),
-          child: Image.file(
-            File(controller.selectedImage.value!.path),
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: 240,
-          ),
+          child: kIsWeb
+              ? Image.network(
+                  controller.selectedImage.value!.path,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 240,
+                )
+              : Image.file(
+                  File(controller.selectedImage.value!.path),
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 240,
+                ),
         ),
 
         // Success indicator

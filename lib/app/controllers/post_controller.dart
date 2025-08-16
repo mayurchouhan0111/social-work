@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart' show Geolocator, LocationPermission, Position, LocationAccuracy;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -247,6 +248,18 @@ class PostController extends GetxController {
   }
 
   void uploadPost() async {
+    // Check if user is verified
+    final bool isVerified = _authController.userProfile.value?.isVerified ?? false;
+    if (!isVerified) {
+      Get.snackbar(
+        'Verification Required',
+        'Your account must be verified by an admin before you can post items.',
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
     // Validation checks
     if (title.value.isEmpty || description.value.isEmpty) {
       Get.snackbar('Error', 'Title and description cannot be empty');

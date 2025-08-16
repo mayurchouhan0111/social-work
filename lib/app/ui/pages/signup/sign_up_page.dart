@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -345,12 +346,19 @@ class SignUpPage extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Image.file(
-                controller.selectedIdentityCard.value!,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 200,
-              ),
+              child: kIsWeb
+                  ? Image.network(
+                      controller.selectedIdentityCard.value!.path,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 200,
+                    )
+                  : Image.file(
+                      File(controller.selectedIdentityCard.value!.path),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 200,
+                    ),
             ),
             if (controller.identityCardImageUrl.value.isNotEmpty)
               Positioned(

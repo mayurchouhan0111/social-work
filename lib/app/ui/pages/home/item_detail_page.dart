@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:treasurehunt/app/controllers/auth_controller.dart';
 import 'package:treasurehunt/app/models/item_model.dart';
 import '../../../app_theme.dart';
 import '../../../routes/app_routes.dart';
@@ -16,6 +17,7 @@ class MinimalItemDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find();
     final bool isLost = item.status.toLowerCase() == 'lost';
     final Color statusColor = isLost ? Colors.orange : Colors.green;
 
@@ -39,7 +41,7 @@ class MinimalItemDetailPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert, color: Colors.white),
-            onPressed: () => _showMoreOptions(context),
+            onPressed: () => _showMoreOptions(context, authController),
           ),
         ],
       ),
@@ -92,11 +94,11 @@ class MinimalItemDetailPage extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Image
-            if (item.imageUrl != null && item.imageUrl!.isNotEmpty)
+            if (item.imageUrl.isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
-                  item.imageUrl!,
+                  item.imageUrl,
                   fit: BoxFit.cover,
                   height: 200,
                   width: double.infinity,
@@ -122,7 +124,7 @@ class MinimalItemDetailPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: () => _openWhatsApp(isFoundClaim: true),
+                onPressed: () => _openWhatsApp(authController, isFoundClaim: true),
                 icon: FaIcon(
                   isLost ? FontAwesomeIcons.handHoldingHeart : FontAwesomeIcons.handshake,
                   size: 18,
@@ -147,6 +149,62 @@ class MinimalItemDetailPage extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void _showVerificationRequiredDialog() {
+    Get.dialog(
+      Dialog(
+        backgroundColor: const Color(0xFF1A1A1A),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const FaIcon(FontAwesomeIcons.shieldHalved, size: 32, color: Colors.orange),
+              const SizedBox(height: 16),
+              Text(
+                "Verification Required",
+                style: GoogleFonts.inter(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                "You must be a verified user to contact other users. Please wait for an admin to approve your profile.",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  color: const Color(0xFF9E9E9E),
+                ),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Get.back(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    "OK",
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -193,7 +251,7 @@ class MinimalItemDetailPage extends StatelessWidget {
   }
 
   // More Options Bottom Sheet
-  void _showMoreOptions(BuildContext context) {
+  void _showMoreOptions(BuildContext context, AuthController authController) {
     showModalBottomSheet(
       context: context,
       backgroundColor: const Color(0xFF1A1A1A),
@@ -242,7 +300,7 @@ class MinimalItemDetailPage extends StatelessWidget {
               ),
               onTap: () {
                 Get.back();
-                _openWhatsApp(isFoundClaim: false);
+                _openWhatsApp(authController, isFoundClaim: false);
               },
             ),
 
@@ -263,7 +321,7 @@ class MinimalItemDetailPage extends StatelessWidget {
                 ),
                 onTap: () {
                   Get.back();
-                  _makePhoneCall();
+                  _makePhoneCall(authController);
                 },
               ),
 
@@ -284,7 +342,7 @@ class MinimalItemDetailPage extends StatelessWidget {
                 ),
                 onTap: () {
                   Get.back();
-                  _sendSMS();
+                  _sendSMS(authController);
                 },
               ),
 
@@ -395,7 +453,13 @@ class MinimalItemDetailPage extends StatelessWidget {
   }
 
   // WhatsApp Integration
-  Future<void> _openWhatsApp({required bool isFoundClaim}) async {
+  Future<void> _openWhatsApp(AuthController authController, {required bool isFoundClaim}) async {
+    final isVerified = authController.userProfile.value?.isVerified ?? false;
+    if (!isVerified) {
+      _showVerificationRequiredDialog();
+      return;
+    }
+
     String? phoneNumber = item.mobileNumber?.toString();
     if (phoneNumber == null || phoneNumber.isEmpty) {
       _showNoContactDialog();
@@ -450,17 +514,17 @@ class MinimalItemDetailPage extends StatelessWidget {
 
     if (isFoundClaim) {
       if (isLost) {
-        message = "Hi! I found your lost item: $itemTitle\n\n"
-            "Location mentioned: $location\n\n"
+        message = "Hi! I found your lost item: $itemTitle\n\n" 
+            "Location mentioned: $location\n\n" 
             "Please let me know if this is yours and we can arrange to return it to you.";
       } else {
-        message = "Hi! I believe the item you found ($itemTitle) belongs to me.\n\n"
-            "Location: $location\n\n"
+        message = "Hi! I believe the item you found ($itemTitle) belongs to me.\n\n" 
+            "Location: $location\n\n" 
             "Could we please arrange a meeting to verify and collect it?";
       }
     } else {
-      message = "Hi! I'm contacting you regarding: $itemTitle\n\n"
-          "Location: $location\n\n"
+      message = "Hi! I'm contacting you regarding: $itemTitle\n\n" 
+          "Location: $location\n\n" 
           "Could you please provide more details?";
     }
 
@@ -468,7 +532,13 @@ class MinimalItemDetailPage extends StatelessWidget {
   }
 
   // Phone Call
-  Future<void> _makePhoneCall() async {
+  Future<void> _makePhoneCall(AuthController authController) async {
+    final isVerified = authController.userProfile.value?.isVerified ?? false;
+    if (!isVerified) {
+      _showVerificationRequiredDialog();
+      return;
+    }
+
     String? phoneNumber = item.mobileNumber?.toString();
     if (phoneNumber == null || phoneNumber.isEmpty) {
       _showNoContactDialog();
@@ -498,7 +568,13 @@ class MinimalItemDetailPage extends StatelessWidget {
   }
 
   // SMS
-  Future<void> _sendSMS() async {
+  Future<void> _sendSMS(AuthController authController) async {
+    final isVerified = authController.userProfile.value?.isVerified ?? false;
+    if (!isVerified) {
+      _showVerificationRequiredDialog();
+      return;
+    }
+
     String? phoneNumber = item.mobileNumber?.toString();
     if (phoneNumber == null || phoneNumber.isEmpty) {
       _showNoContactDialog();
@@ -531,8 +607,8 @@ class MinimalItemDetailPage extends StatelessWidget {
 
   // Share Item
   Future<void> _shareItem() async {
-    final message = "Check out this ${item.status.toLowerCase()} item: ${item.title}\n"
-        "Location: ${item.location}\n"
+    final message = "Check out this ${item.status.toLowerCase()} item: ${item.title}\n" 
+        "Location: ${item.location}\n" 
         "Posted: ${DateFormat('MMM dd, yyyy').format(item.createdAt)}";
 
     try {

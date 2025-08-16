@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../app_theme.dart';
 import '../../../controllers/home_controller.dart';
 import '../../../controllers/main_nav_controller.dart';
-import 'item_detail_page.dart';
+import 'item_detail_page.dart' hide AppTheme;
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
