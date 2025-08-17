@@ -2,10 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const nodemailer = require('nodemailer');
 const admin = require('firebase-admin'); // Firebase Admin SDK
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 
 // --- Nodemailer Setup ---

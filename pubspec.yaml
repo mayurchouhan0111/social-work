@@ -28,6 +28,7 @@ dependencies:
   google_sign_in: ^6.2.1
 
   # Networking
+  http: ^1.2.1
   dio: ^5.4.3
 
   # Image Picker & File handling

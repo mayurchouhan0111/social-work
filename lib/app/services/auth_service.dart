@@ -3,6 +3,8 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:get/get.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../models/user_model.dart';
 
 class AuthService {
@@ -51,6 +53,29 @@ class AuthService {
 
         // Insert profile into Supabase
         await _supabase.from('profiles').insert(userProfile.toMap());
+
+        // Notify admin for verification
+        try {
+          final response = await http.post(
+            Uri.parse('https://social-work.onrender.com/notify-admin'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(<String, dynamic>{
+              'itemId': userProfile.id,
+              'collectionType': 'new_user_verification',
+              'itemData': userProfile.toMap(),
+            }),
+          );
+
+          if (response.statusCode == 200) {
+            print('Admin notification for new user verification sent successfully.');
+          } else {
+            print('Failed to send admin notification for new user verification: ${response.body}');
+          }
+        } catch (e) {
+          print('Error sending admin notification for new user verification: $e');
+        }
 
         Get.snackbar('Success', 'Account created successfully! Please verify your email.');
         return true;

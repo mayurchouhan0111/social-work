@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../models/chat_model.dart';
 import '../models/claim_model.dart';
@@ -53,6 +55,30 @@ class FirebaseService extends GetxController {
       });
 
       print('Post submitted successfully to $collection and moderation_queue');
+
+      // Notify admin via backend
+      try {
+        final response = await http.post(
+          Uri.parse('https://social-work.onrender.com/notify-admin'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, dynamic>{
+            'itemId': docId,
+            'collectionType': collection,
+            'itemData': postData,
+          }),
+        );
+
+        if (response.statusCode == 200) {
+          print('Admin notification email sent successfully.');
+        } else {
+          print('Failed to send admin notification email: ${response.body}');
+        }
+      } catch (e) {
+        print('Error sending admin notification email: $e');
+      }
+
       return true;
     } catch (e) {
       print('Error submitting post: $e');
