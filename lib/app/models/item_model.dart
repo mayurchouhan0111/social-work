@@ -27,6 +27,7 @@ class ItemModel {
   final String? moderationStatus;
   final bool? isConfirmedByAdmin;
   final DateTime? submittedAt;
+  final List<Map<String, String>>? questions;
 
   ItemModel({
     required this.id,
@@ -49,6 +50,7 @@ class ItemModel {
     this.moderationStatus,
     this.isConfirmedByAdmin,
     this.submittedAt,
+    this.questions,
   });
 
   // Convert to Map for Firestore
@@ -74,6 +76,7 @@ class ItemModel {
       'moderationStatus': moderationStatus,
       'isConfirmedByAdmin': isConfirmedByAdmin,
       'submittedAt': submittedAt?.toIso8601String(),
+      'questions': questions,
     };
   }
 
@@ -108,6 +111,9 @@ class ItemModel {
           : map['submittedAt'] != null
               ? DateTime.parse(map['submittedAt'])
               : null,
+      questions: map['questions'] != null
+          ? List<Map<String, String>>.from(map['questions'].map((q) => Map<String, String>.from(q)))
+          : null,
     );
   }
 
@@ -133,6 +139,7 @@ class ItemModel {
     String? moderationStatus,
     bool? isConfirmedByAdmin,
     DateTime? submittedAt,
+    List<Map<String, String>>? questions,
   }) {
     return ItemModel(
       id: id ?? this.id,
@@ -155,6 +162,7 @@ class ItemModel {
       moderationStatus: moderationStatus ?? this.moderationStatus,
       isConfirmedByAdmin: isConfirmedByAdmin ?? this.isConfirmedByAdmin,
       submittedAt: submittedAt ?? this.submittedAt,
+      questions: questions ?? this.questions,
     );
   }
 

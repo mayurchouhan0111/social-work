@@ -52,12 +52,30 @@ class PostController extends GetxController {
   var longitude = 0.0.obs;
   var formattedTime = ''.obs;
   var timestamp = Rx<DateTime?>(null);
+  var questions = <Map<String, String>>[].obs;
 
   @override
   void onInit() {
     super.onInit();
     _updateTime();
     timestamp.value = DateTime.now();
+    questions.add({'question': '', 'answer': ''});
+  }
+
+  void addQuestion() {
+    questions.add({'question': '', 'answer': ''});
+  }
+
+  void removeQuestion(int index) {
+    questions.removeAt(index);
+  }
+
+  void updateQuestion(int index, String question) {
+    questions[index]['question'] = question;
+  }
+
+  void updateAnswer(int index, String answer) {
+    questions[index]['answer'] = answer;
   }
 
   void _updateTime() {
@@ -304,6 +322,14 @@ class PostController extends GetxController {
       return;
     }
 
+    // Validate questions
+    for (var qa in questions) {
+      if (qa['question']!.isEmpty || qa['answer']!.isEmpty) {
+        Get.snackbar('Error', 'Please fill out all question and answer fields.');
+        return;
+      }
+    }
+
     isUploading.value = true;
     try {
       final String? userId = _authController.user.value?.id;
@@ -325,6 +351,7 @@ class PostController extends GetxController {
         latitude: latitude.value != 0.0 ? latitude.value : null,
         longitude: longitude.value != 0.0 ? longitude.value : null,
         gpsLocation: currentLocation.value.isNotEmpty ? currentLocation.value : null,
+        questions: questions.toList(),
       );
 
       if (status.value == 'lost') {

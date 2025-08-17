@@ -4,9 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import '../../../app_theme.dart';
+import '../../../controllers/auth_controller.dart';
 import '../../../controllers/home_controller.dart';
 import '../../../controllers/main_nav_controller.dart';
 import 'item_detail_page.dart' hide AppTheme;
+import '../../widgets/filter_enums.dart'; // Import SortOption and DateRange
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -23,7 +25,7 @@ class HomePage extends StatelessWidget {
           if (constraints.maxWidth >= 768) {
             return Column(
               children: [
-                _buildWebHeader(constraints),
+                _buildWebHeader(controller, constraints),
                 Expanded(child: _buildWebContent(controller, constraints)),
               ],
             );
@@ -32,7 +34,7 @@ class HomePage extends StatelessWidget {
           else {
             return Column(
               children: [
-                _buildMobileHeader(),
+                _buildMobileHeader(controller),
                 Expanded(child: _buildMobileContent(controller)),
               ],
             );
@@ -42,7 +44,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildWebHeader(BoxConstraints constraints) {
+  Widget _buildWebHeader(HomeController controller, BoxConstraints constraints) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
@@ -83,13 +85,15 @@ class HomePage extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          _buildWebFilterButton(),
+          _buildSearchField(controller, isWeb: true),
+          const SizedBox(width: 20),
+          _buildWebFilterButton(controller),
         ],
       ),
     );
   }
 
-  Widget _buildMobileHeader() {
+  Widget _buildMobileHeader(HomeController controller) {
     return AppBar(
       title: Text(
         "Lost & Found",
@@ -110,41 +114,72 @@ class HomePage extends StatelessWidget {
             color: const Color(0xFF9E9E9E),
           ),
           onPressed: () {
-            // Add filter functionality
+            _showFilterBottomSheet(controller);
           },
         ),
       ],
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: _buildSearchField(controller, isWeb: false),
+        ),
+      ),
     );
   }
 
-  Widget _buildWebFilterButton() {
+  Widget _buildSearchField(HomeController controller, {required bool isWeb}) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      width: isWeb ? 300 : double.infinity,
       decoration: BoxDecoration(
-        color: AppTheme.primaryColor.withOpacity(0.2),
+        color: const Color(0xFF2A2A2A),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppTheme.primaryColor.withOpacity(0.3),
+      ),
+      child: TextField(
+        onChanged: (value) => controller.setSearchTerm(value),
+        style: GoogleFonts.inter(color: Colors.white),
+        decoration: InputDecoration(
+          hintText: "Search items...",
+          hintStyle: GoogleFonts.inter(color: const Color(0xFF9E9E9E)),
+          prefixIcon: const Icon(Icons.search, color: Color(0xFF9E9E9E)),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(vertical: 14),
         ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FaIcon(
-            FontAwesomeIcons.filter,
-            size: 14,
-            color: AppTheme.primaryColor,
+    );
+  }
+
+  Widget _buildWebFilterButton(HomeController controller) {
+    return GestureDetector(
+      onTap: () => _showFilterBottomSheet(controller),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        decoration: BoxDecoration(
+          color: AppTheme.primaryColor.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+              color: AppTheme.primaryColor.withOpacity(0.3)
           ),
-          const SizedBox(width: 8),
-          Text(
-            "Filters",
-            style: GoogleFonts.inter(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FaIcon(
+              FontAwesomeIcons.filter,
+              size: 14,
               color: AppTheme.primaryColor,
             ),
-          ),
-        ],
+            const SizedBox(width: 8),
+            Text(
+              "Filters",
+              style: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: AppTheme.primaryColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -155,7 +190,7 @@ class HomePage extends StatelessWidget {
         return _buildLoadingState();
       }
 
-      if (controller.combinedItems.isEmpty) {
+      if (controller.filteredItems.isEmpty) {
         return _buildEmptyState();
       }
 
@@ -175,15 +210,15 @@ class HomePage extends StatelessWidget {
         return _buildLoadingState();
       }
 
-      if (controller.combinedItems.isEmpty) {
+      if (controller.filteredItems.isEmpty) {
         return _buildEmptyState();
       }
 
       return ListView.builder(
         padding: const EdgeInsets.all(16),
-        itemCount: controller.combinedItems.length,
+        itemCount: controller.filteredItems.length,
         itemBuilder: (context, index) {
-          final item = controller.combinedItems[index];
+          final item = controller.filteredItems[index];
           return _buildMobileItemCard(item);
         },
       );
@@ -214,9 +249,9 @@ class HomePage extends StatelessWidget {
         mainAxisSpacing: 24,
         childAspectRatio: childAspectRatio,
       ),
-      itemCount: controller.combinedItems.length,
+      itemCount: controller.filteredItems.length,
       itemBuilder: (context, index) {
-        final item = controller.combinedItems[index];
+        final item = controller.filteredItems[index];
         return _buildWebItemCard(item);
       },
     );
@@ -254,9 +289,9 @@ class HomePage extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF2A2A2A),
-                      borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF2A2A2A),
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(16),
                         topRight: Radius.circular(16),
                       ),
@@ -677,11 +712,21 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 40),
             GestureDetector(
               onTap: () {
-                try {
-                  Get.find<MainNavController>().changeTab(1);
-                } catch (e) {
-                  // Fallback navigation
-                  Get.toNamed('/post');
+                final authController = Get.find<AuthController>();
+                if (authController.userProfile.value?.isVerified ?? false) {
+                  try {
+                    Get.find<MainNavController>().changeTab(1);
+                  } catch (e) {
+                    // Fallback navigation
+                    Get.toNamed('/post');
+                  }
+                } else {
+                  Get.snackbar(
+                    'Verification Required',
+                    'You need to be a verified user to post items.',
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                  );
                 }
               },
               child: Container(
@@ -726,12 +771,164 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _navigateToDetailView(dynamic item) {
-    Get.to(
-          () => MinimalItemDetailPage(item: item),
-      transition: Transition.rightToLeft,
-      duration: const Duration(milliseconds: 300),
+  // Missing filter bottom sheet method
+  void _showFilterBottomSheet(HomeController controller) {
+    Get.bottomSheet(
+      Container(
+        padding: const EdgeInsets.all(24),
+        decoration: const BoxDecoration(
+          color: Color(0xFF1A1A1A),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Handle bar
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF9E9E9E),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Title
+            Text(
+              "Filter Items",
+              style: GoogleFonts.inter(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Status Filter
+            Text(
+              "Status",
+              style: GoogleFonts.inter(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            Obx(() => Row(
+              children: [
+                Expanded(
+                  child: _buildFilterChip(
+                    label: "All",
+                    isSelected: controller.selectedStatusFilter.value == 'all',
+                    onTap: () => controller.setStatusFilter('all'),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _buildFilterChip(
+                    label: "Lost",
+                    isSelected: controller.selectedStatusFilter.value == 'lost',
+                    onTap: () => controller.setStatusFilter('lost'),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _buildFilterChip(
+                    label: "Found",
+                    isSelected: controller.selectedStatusFilter.value == 'found',
+                    onTap: () => controller.setStatusFilter('found'),
+                  ),
+                ),
+              ],
+            )),
+
+            const SizedBox(height: 32),
+
+            // Apply Button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => Get.back(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.primaryColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Text(
+                  "Apply Filters",
+                  style: GoogleFonts.inter(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
+  }
+
+  Widget _buildFilterChip({
+    required String label,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? AppTheme.primaryColor
+              : const Color(0xFF2A2A2A),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: isSelected
+                ? AppTheme.primaryColor
+                : const Color(0xFF2A2A2A),
+          ),
+        ),
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.inter(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: isSelected ? Colors.white : const Color(0xFF9E9E9E),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _navigateToDetailView(dynamic item) {
+    final authController = Get.find<AuthController>();
+    if (authController.userProfile.value?.isVerified ?? false) {
+      Get.to(
+            () => MinimalItemDetailPage(item: item),
+        transition: Transition.rightToLeft,
+        duration: const Duration(milliseconds: 300),
+      );
+    } else {
+      Get.snackbar(
+        'Verification Required',
+        'You need to be a verified user to view item details.',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 
   String _formatDate(DateTime dateTime) {

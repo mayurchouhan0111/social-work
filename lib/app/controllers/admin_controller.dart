@@ -14,9 +14,11 @@ class AdminController extends GetxController {
   var pendingPosts = <DocumentSnapshot>[].obs;
   var allPosts = <DocumentSnapshot>[].obs;
   var unverifiedUsers = <UserModel>[].obs;
+  var verifiedUsers = <UserModel>[].obs;
   var pendingCount = 0.obs;
   var unverifiedUsersCount = 0.obs;
-  var selectedTab = 0.obs; // 0: Pending Posts, 1: All Posts, 2: Users
+  var verifiedUsersCount = 0.obs;
+  var selectedTab = 0.obs; // 0: Pending Posts, 1: All Posts, 2: Unverified Users, 3: Verified Users
 
   @override
   void onInit() {
@@ -25,6 +27,7 @@ class AdminController extends GetxController {
     loadPendingPosts();
     loadAllPosts();
     loadUnverifiedUsers();
+    loadVerifiedUsers();
   }
 
   void loadUnverifiedUsers() async {
@@ -36,6 +39,18 @@ class AdminController extends GetxController {
       print('Unverified users loaded: ${users.length}');
     } catch (e) {
       print('Exception in loadUnverifiedUsers: $e');
+    }
+  }
+
+  void loadVerifiedUsers() async {
+    print('Loading verified users...');
+    try {
+      final users = await _authService.getVerifiedUsers();
+      verifiedUsers.value = users;
+      verifiedUsersCount.value = users.length;
+      print('Verified users loaded: ${users.length}');
+    } catch (e) {
+      print('Exception in loadVerifiedUsers: $e');
     }
   }
 
@@ -53,6 +68,7 @@ class AdminController extends GetxController {
           icon: const Icon(Icons.check_circle, color: Colors.green),
         );
         loadUnverifiedUsers(); // Refresh the list
+        loadVerifiedUsers();
       } else {
         Get.snackbar(
           'Error',
@@ -63,6 +79,42 @@ class AdminController extends GetxController {
       }
     } catch (e) {
       print('Error approving user: $e');
+      Get.snackbar(
+        'Error',
+        'An error occurred: $e',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> unverifyUser(String userId) async {
+    print('Unverifying user: $userId');
+    isLoading.value = true;
+    try {
+      final result = await _authService.verifyUser(userId, false);
+      if (result) {
+        Get.snackbar(
+          'Success',
+          'User un-verified successfully',
+          backgroundColor: const Color(0xFF1A1A1A),
+          colorText: Colors.white,
+          icon: const Icon(Icons.check_circle, color: Colors.green),
+        );
+        loadUnverifiedUsers();
+        loadVerifiedUsers(); // Refresh the list
+      } else {
+        Get.snackbar(
+          'Error',
+          'Failed to un-verify user',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      print('Error un-verifying user: $e');
       Get.snackbar(
         'Error',
         'An error occurred: $e',

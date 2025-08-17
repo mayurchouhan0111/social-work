@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import '../models/chat_model.dart';
+import '../models/claim_model.dart';
+
 class FirebaseService extends GetxController {
   static FirebaseService get instance => Get.find();
 
@@ -286,4 +289,131 @@ class FirebaseService extends GetxController {
         .orderBy('submittedAt', descending: true)
         .snapshots();
   }
+
+  // Create a new claim
+  Future<bool> createClaim(ClaimModel claim) async {
+    try {
+      await _firestore.collection('claims').add(claim.toMap());
+      return true;
+    } catch (e) {
+      print('Error creating claim: $e');
+      return false;
+    }
+  }
+
+  // Get all claims for an item
+  Stream<QuerySnapshot> getItemClaims(String itemId) {
+    return _firestore
+        .collection('claims')
+        .where('itemId', isEqualTo: itemId)
+        .snapshots();
+  }
+
+  // Update claim status
+  Future<bool> updateClaimStatus(String claimId, String status) async {
+    try {
+      await _firestore.collection('claims').doc(claimId).update({'status': status});
+      return true;
+    } catch (e) {
+      print('Error updating claim status: $e');
+      return false;
+    }
+  }
+
+  // Create a new chat
+  Future<String?> createChat(String user1Id, String user2Id) async {
+    try {
+      // Generate a predictable chat ID
+      final List<String> userIds = [user1Id, user2Id]..sort();
+      final chatId = userIds.join('_');
+
+      final chatDoc = _firestore.collection('chats').doc(chatId);
+      final chatSnapshot = await chatDoc.get();
+
+      if (chatSnapshot.exists) {
+        // Chat already exists
+        return chatId;
+      } else {
+        // Create a new chat
+        await chatDoc.set({
+          'users': userIds,
+          'lastMessage': '',
+          'lastMessageTimestamp': FieldValue.serverTimestamp(),
+          'isSettled': false,
+          'settlementStatus': {
+            userIds[0]: 'pending',
+            userIds[1]: 'pending',
+          },
+        });
+        return chatId;
+      }
+    } catch (e) {
+      print('Error creating chat: $e');
+      return null;
+    }
+  }
+
+  // Get chat messages
+  Stream<QuerySnapshot> getChatMessages(String chatId) {
+    return _firestore
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages')
+        .orderBy('timestamp', descending: true)
+        .snapshots();
+  }
+
+  // Send a new message
+  Future<void> sendMessage(String chatId, ChatModel message) async {
+    try {
+      await _firestore
+          .collection('chats')
+          .doc(chatId)
+          .collection('messages')
+          .add(message.toMap());
+
+      await _firestore.collection('chats').doc(chatId).update({
+        'lastMessage': message.message,
+        'lastMessageTimestamp': message.timestamp,
+      });
+    } catch (e) {
+      print('Error sending message: $e');
+    }
+  }
+
+  // Get chat document
+  Future<DocumentSnapshot> getChat(String chatId) {
+    return _firestore.collection('chats').doc(chatId).get();
+  }
+
+  // Get all chat sessions for a user
+  Stream<QuerySnapshot> getUserChats(String userId) {
+    return _firestore
+        .collection('chats')
+        .where('users', arrayContains: userId)
+        .orderBy('lastMessageTimestamp', descending: true)
+        .snapshots();
+  }
+
+  // Update settlement status
+  Future<void> updateSettlementStatus(String chatId, String userId, String status) async {
+    try {
+      await _firestore.collection('chats').doc(chatId).update({
+        'settlementStatus.$userId': status,
+      });
+    } catch (e) {
+      print('Error updating settlement status: $e');
+    }
+  }
+
+  // Delete chat
+  Future<void> deleteChat(String chatId) async {
+    try {
+      await _firestore.collection('chats').doc(chatId).delete();
+    } catch (e) {
+      print('Error deleting chat: $e');
+    }
+  }
+
+  
 }

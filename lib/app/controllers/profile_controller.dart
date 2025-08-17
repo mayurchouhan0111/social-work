@@ -4,16 +4,23 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../services/auth_service.dart';
+import 'package:treasurehunt/app/services/firebase_service.dart';
+import '../models/item_model.dart';
 import '../models/user_model.dart';
+import '../services/auth_service.dart';
 
-class ProfileController extends GetxController {
+class ProfileController extends GetxController{
   final AuthService _authService = AuthService();
+  final FirebaseService _firebaseService = Get.find();
 
   // User profile data
   var userProfile = Rxn<UserModel>();
   var isLoading = false.obs;
   var isUpdating = false.obs;
+
+  // User's posts
+  var lostItems = <ItemModel>[].obs;
+  var foundItems = <ItemModel>[].obs;
 
   // Computed properties for easy access
   String get name => userProfile.value?.name ?? '';
@@ -28,6 +35,7 @@ class ProfileController extends GetxController {
   void onInit() {
     super.onInit();
     fetchProfile();
+    fetchUserPosts();
   }
 
   // Fetch user profile from Supabase
@@ -55,6 +63,20 @@ class ProfileController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  // Fetch user's posts
+  void fetchUserPosts() {
+    final userId = _authService.currentUser?.id;
+    if (userId == null) return;
+
+    _firebaseService.getUserLostItems(userId).listen((snapshot) {
+      lostItems.value = snapshot.docs.map((doc) => ItemModel.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
+    });
+
+    _firebaseService.getUserFoundItems(userId).listen((snapshot) {
+      foundItems.value = snapshot.docs.map((doc) => ItemModel.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
+    });
   }
 
   // Update user profile

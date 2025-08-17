@@ -1,4 +1,5 @@
 // lib/app/pages/auth/sign_up_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
 import '../../../controllers/auth_controller.dart';
 import '../../../app_theme.dart';
 import '../../../routes/app_pages.dart';
@@ -29,83 +29,93 @@ class SignUpPage extends StatelessWidget {
     final obscureConfirmPassword = true.obs;
 
     return Scaffold(
-      backgroundColor: AppTheme.backgroundColor,
+      backgroundColor: const Color(0xFF000000),
       appBar: AppBar(
-        backgroundColor: AppTheme.backgroundColor,
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.chevronLeft,
-            size: 18,
-            color: AppTheme.textSecondary,
+        leading: Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: const Color(0xFF1A1A1A),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: const Color(0xFF0F52BA).withOpacity(0.2),
+              width: 1,
+            ),
           ),
-          onPressed: () => Get.back(),
+          child: IconButton(
+            icon: const FaIcon(
+              FontAwesomeIcons.chevronLeft,
+              size: 16,
+              color: Color(0xFF87CEEB),
+            ),
+            onPressed: () => Get.back(),
+          ),
         ),
       ),
       body: SafeArea(
-        child: Center( // Center the form
-          child: ConstrainedBox( // Constrain its width
+        child: Center(
+          child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 700),
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 20),
-
                   // Logo Section
                   Container(
-                    padding: const EdgeInsets.all(28),
+                    padding: const EdgeInsets.all(32),
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [AppTheme.accentColor, AppTheme.primaryColor],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(28),
+                      color: const Color(0xFF0F52BA),
+                      borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: AppTheme.accentColor.withOpacity(0.3),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
+                          color: const Color(0xFF0F52BA).withOpacity(0.3),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
                         ),
                       ],
                     ),
                     child: const FaIcon(
                       FontAwesomeIcons.graduationCap,
-                      size: 50,
+                      size: 56,
                       color: Colors.white,
                     ),
                   ),
+
                   const SizedBox(height: 40),
 
                   // Title
                   Text(
                     "Student Registration",
-                    style: GoogleFonts.inter(
-                      fontSize: 32,
+                    style: GoogleFonts.rubik(
+                      fontSize: 36,
                       fontWeight: FontWeight.w800,
-                      color: AppTheme.textPrimary,
+                      color: Colors.white,
+                      letterSpacing: -0.5,
                     ),
                     textAlign: TextAlign.center,
                   ),
+
                   const SizedBox(height: 12),
+
                   Text(
                     "Join the treasure hunt community",
-                    style: GoogleFonts.inter(
-                      fontSize: 16,
-                      color: AppTheme.textSecondary,
+                    style: GoogleFonts.rubik(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xFF87CEEB),
+                      letterSpacing: 0.5,
                     ),
                     textAlign: TextAlign.center,
                   ),
+
                   const SizedBox(height: 48),
 
                   // Personal Information Section
                   _buildSectionHeader("Personal Information"),
                   const SizedBox(height: 16),
 
-                  // Name Input
                   _buildInputField(
                     controller: nameController,
                     label: "Full Name",
@@ -113,9 +123,9 @@ class SignUpPage extends StatelessWidget {
                     icon: FontAwesomeIcons.user,
                     onChanged: (value) => controller.name.value = value,
                   ),
-                  const SizedBox(height: 20),
 
-                  // Email Input
+                  const SizedBox(height: 16),
+
                   _buildInputField(
                     controller: emailController,
                     label: "Email Address",
@@ -124,9 +134,9 @@ class SignUpPage extends StatelessWidget {
                     keyboardType: TextInputType.emailAddress,
                     onChanged: (value) => controller.email.value = value,
                   ),
-                  const SizedBox(height: 20),
 
-                  // Mobile Number Input
+                  const SizedBox(height: 16),
+
                   _buildInputField(
                     controller: mobileController,
                     label: "Mobile Number",
@@ -135,9 +145,9 @@ class SignUpPage extends StatelessWidget {
                     keyboardType: TextInputType.phone,
                     onChanged: (value) => controller.mobileNumber.value = value,
                   ),
-                  const SizedBox(height: 20),
 
-                  // Password Input
+                  const SizedBox(height: 16),
+
                   Obx(() => _buildInputField(
                     controller: passwordController,
                     label: "Password",
@@ -147,19 +157,19 @@ class SignUpPage extends StatelessWidget {
                     onChanged: (value) => controller.password.value = value,
                     suffixIcon: GestureDetector(
                       onTap: () => obscurePassword.toggle(),
-                      child: Padding(
+                      child: Container(
                         padding: const EdgeInsets.all(16),
                         child: FaIcon(
                           obscurePassword.value ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
-                          size: 18,
-                          color: AppTheme.textSecondary,
+                          size: 16,
+                          color: Colors.white60,
                         ),
                       ),
                     ),
                   )),
-                  const SizedBox(height: 20),
 
-                  // Confirm Password Input
+                  const SizedBox(height: 16),
+
                   Obx(() => _buildInputField(
                     controller: confirmPasswordController,
                     label: "Confirm Password",
@@ -169,23 +179,23 @@ class SignUpPage extends StatelessWidget {
                     onChanged: (value) => controller.confirmPassword.value = value,
                     suffixIcon: GestureDetector(
                       onTap: () => obscureConfirmPassword.toggle(),
-                      child: Padding(
+                      child: Container(
                         padding: const EdgeInsets.all(16),
                         child: FaIcon(
                           obscureConfirmPassword.value ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
-                          size: 18,
-                          color: AppTheme.textSecondary,
+                          size: 16,
+                          color: Colors.white60,
                         ),
                       ),
                     ),
                   )),
+
                   const SizedBox(height: 32),
 
                   // Academic Information Section
                   _buildSectionHeader("Academic Information"),
                   const SizedBox(height: 16),
 
-                  // Enrollment Number Input
                   _buildInputField(
                     controller: enrollmentController,
                     label: "Enrollment Number",
@@ -193,20 +203,24 @@ class SignUpPage extends StatelessWidget {
                     icon: FontAwesomeIcons.idCard,
                     onChanged: (value) => controller.enrollmentNumber.value = value,
                   ),
+
                   const SizedBox(height: 32),
 
                   // Identity Verification Section
                   _buildSectionHeader("Identity Verification"),
                   const SizedBox(height: 16),
                   _buildIdentityCardUpload(controller),
+
                   const SizedBox(height: 32),
 
                   // Create Account Button
                   _buildSignUpButton(controller, emailController, passwordController),
+
                   const SizedBox(height: 24),
 
                   // Info Card
                   _buildInfoCard(),
+
                   const SizedBox(height: 32),
 
                   // Sign In Link
@@ -215,17 +229,18 @@ class SignUpPage extends StatelessWidget {
                     child: RichText(
                       text: TextSpan(
                         text: "Already have an account? ",
-                        style: GoogleFonts.inter(
+                        style: GoogleFonts.rubik(
                           fontSize: 16,
-                          color: AppTheme.textSecondary,
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w400,
                         ),
                         children: [
                           TextSpan(
                             text: "Sign In",
-                            style: GoogleFonts.inter(
+                            style: GoogleFonts.rubik(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: AppTheme.accentColor,
+                              color: const Color(0xFF87CEEB),
                             ),
                           ),
                         ],
@@ -244,10 +259,11 @@ class SignUpPage extends StatelessWidget {
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: GoogleFonts.inter(
+      style: GoogleFonts.rubik(
         fontSize: 18,
         fontWeight: FontWeight.w700,
-        color: AppTheme.textPrimary,
+        color: Colors.white,
+        letterSpacing: 0.5,
       ),
     );
   }
@@ -264,13 +280,17 @@ class SignUpPage extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: AppTheme.cardColor,
+        color: const Color(0xFF1A1A1A),
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: const Color(0xFF0F52BA).withOpacity(0.2),
+          width: 1,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -279,30 +299,58 @@ class SignUpPage extends StatelessWidget {
         keyboardType: keyboardType,
         obscureText: obscureText,
         onChanged: onChanged,
-        style: GoogleFonts.inter(
+        style: GoogleFonts.rubik(
           fontSize: 16,
-          color: AppTheme.textPrimary,
+          color: Colors.white,
+          fontWeight: FontWeight.w400,
         ),
         decoration: InputDecoration(
           labelText: label,
           hintText: hint,
-          prefixIcon: Padding(
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          prefixIcon: Container(
             padding: const EdgeInsets.all(16),
             child: FaIcon(
               icon,
-              size: 20,
-              color: AppTheme.accentColor,
+              size: 18,
+              color: const Color(0xFF87CEEB),
             ),
           ),
           suffixIcon: suffixIcon,
-          border: InputBorder.none,
-          labelStyle: GoogleFonts.inter(
-            color: AppTheme.textSecondary,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide.none,
           ),
-          hintStyle: GoogleFonts.inter(
-            color: AppTheme.textSecondary.withOpacity(0.6),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide.none,
           ),
-          contentPadding: const EdgeInsets.all(20),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: const Color(0xFF0F52BA),
+              width: 2,
+            ),
+          ),
+          labelStyle: GoogleFonts.rubik(
+            color: const Color(0xFF87CEEB),
+            fontSize: 16,
+          ),
+          floatingLabelStyle: GoogleFonts.rubik(
+            color: const Color(0xFF87CEEB),
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          hintStyle: GoogleFonts.rubik(
+            color: Colors.white70,
+            fontSize: 16,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 20,
+          ),
+          filled: true,
+          fillColor: Colors.transparent,
         ),
       ),
     );
@@ -313,19 +361,19 @@ class SignUpPage extends StatelessWidget {
       onTap: controller.isUploadingIdentityCard.value ? null : () => _showImagePicker(controller),
       child: Container(
         width: double.infinity,
-        height: 200,
+        height: 180,
         decoration: BoxDecoration(
-          color: AppTheme.cardColor,
+          color: const Color(0xFF1A1A1A),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: AppTheme.primaryColor.withOpacity(0.1),
+            color: const Color(0xFF0F52BA).withOpacity(0.2),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -333,75 +381,85 @@ class SignUpPage extends StatelessWidget {
             ? Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(AppTheme.primaryColor)),
-            const SizedBox(height: 16),
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(Color(0xFF87CEEB)),
+              strokeWidth: 2.5,
+            ),
+            const SizedBox(height: 12),
             Text(
               "Uploading identity card...",
-              style: GoogleFonts.inter(fontSize: 14, color: AppTheme.textSecondary),
+              style: GoogleFonts.rubik(
+                fontSize: 14,
+                color: Colors.white70,
+              ),
             ),
           ],
         )
             : controller.selectedIdentityCard.value != null
-            ? Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: kIsWeb
+            ? ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Stack(
+            children: [
+              kIsWeb
                   ? Image.network(
-                      controller.selectedIdentityCard.value!.path,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 200,
-                    )
+                controller.selectedIdentityCard.value!.path,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: 180,
+              )
                   : Image.file(
-                      File(controller.selectedIdentityCard.value!.path),
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 200,
+                File(controller.selectedIdentityCard.value!.path),
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: 180,
+              ),
+              if (controller.identityCardImageUrl.value.isNotEmpty)
+                Positioned(
+                  top: 8,
+                  left: 8,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0F52BA),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-            ),
-            if (controller.identityCardImageUrl.value.isNotEmpty)
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.verified, color: Colors.white, size: 14),
+                        const SizedBox(width: 4),
+                        Text(
+                          "Uploaded",
+                          style: GoogleFonts.rubik(
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               Positioned(
                 top: 8,
-                left: 8,
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.8),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(Icons.verified, color: Colors.white, size: 16),
-                      const SizedBox(width: 4),
-                      Text(
-                        "Uploaded",
-                        style: GoogleFonts.inter(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w600),
-                      ),
-                    ],
+                right: 8,
+                child: GestureDetector(
+                  onTap: () {
+                    controller.selectedIdentityCard.value = null;
+                    controller.identityCardImageUrl.value = '';
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(Icons.close, color: Colors.white, size: 16),
                   ),
                 ),
               ),
-            Positioned(
-              top: 8,
-              right: 8,
-              child: GestureDetector(
-                onTap: () {
-                  controller.selectedIdentityCard.value = null;
-                  controller.identityCardImageUrl.value = '';
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Icon(Icons.close, color: Colors.white, size: 16),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         )
             : Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -409,20 +467,31 @@ class SignUpPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppTheme.primaryColor.withOpacity(0.1),
+                color: const Color(0xFF0F52BA).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const FaIcon(FontAwesomeIcons.idCard, size: 24, color: AppTheme.primaryColor),
+              child: const FaIcon(
+                FontAwesomeIcons.idCard,
+                size: 28,
+                color: Color(0xFF87CEEB),
+              ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             Text(
               "Upload Identity Card",
-              style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500, color: AppTheme.textPrimary),
+              style: GoogleFonts.rubik(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
               "Required for student verification",
-              style: GoogleFonts.inter(fontSize: 13, color: AppTheme.textSecondary),
+              style: GoogleFonts.rubik(
+                fontSize: 12,
+                color: const Color(0xFF87CEEB),
+              ),
             ),
           ],
         ),
@@ -438,26 +507,25 @@ class SignUpPage extends StatelessWidget {
         controller.signUp(emailController.text, passwordController.text);
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 18),
         decoration: BoxDecoration(
-          gradient: controller.isLoading.value || controller.isUploadingIdentityCard.value
-              ? null
-              : LinearGradient(
-            colors: [AppTheme.accentColor, AppTheme.primaryColor],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
           color: controller.isLoading.value || controller.isUploadingIdentityCard.value
-              ? AppTheme.cardColor
-              : null,
+              ? const Color(0xFF1A1A1A)
+              : const Color(0xFF0F52BA),
           borderRadius: BorderRadius.circular(16),
+          border: controller.isLoading.value || controller.isUploadingIdentityCard.value
+              ? Border.all(
+            color: const Color(0xFF0F52BA).withOpacity(0.3),
+            width: 1,
+          )
+              : null,
           boxShadow: controller.isLoading.value || controller.isUploadingIdentityCard.value
               ? []
               : [
             BoxShadow(
-              color: AppTheme.accentColor.withOpacity(0.3),
-              blurRadius: 15,
-              offset: const Offset(0, 8),
+              color: const Color(0xFF0F52BA).withOpacity(0.3),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
@@ -465,54 +533,54 @@ class SignUpPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: controller.isUploadingIdentityCard.value
               ? [
-            SizedBox(
+            const SizedBox(
               width: 20,
               height: 20,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation(AppTheme.accentColor),
+                valueColor: AlwaysStoppedAnimation(Color(0xFF87CEEB)),
               ),
             ),
             const SizedBox(width: 12),
             Text(
               "Uploading Identity Card...",
-              style: GoogleFonts.inter(
+              style: GoogleFonts.rubik(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: AppTheme.textPrimary,
+                color: Colors.white70,
               ),
             ),
           ]
               : controller.isLoading.value
               ? [
-            SizedBox(
+            const SizedBox(
               width: 20,
               height: 20,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation(AppTheme.accentColor),
+                valueColor: AlwaysStoppedAnimation(Color(0xFF87CEEB)),
               ),
             ),
             const SizedBox(width: 12),
             Text(
               "Creating Account...",
-              style: GoogleFonts.inter(
+              style: GoogleFonts.rubik(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: AppTheme.textPrimary,
+                color: Colors.white70,
               ),
             ),
           ]
               : [
             const FaIcon(
               FontAwesomeIcons.graduationCap,
-              size: 20,
+              size: 18,
               color: Colors.white,
             ),
             const SizedBox(width: 12),
             Text(
               "Create Student Account",
-              style: GoogleFonts.inter(
+              style: GoogleFonts.rubik(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
@@ -528,30 +596,44 @@ class SignUpPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppTheme.accentColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppTheme.accentColor.withOpacity(0.2),
+          color: const Color(0xFF0F52BA).withOpacity(0.2),
           width: 1,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         children: [
           Row(
             children: [
-              FaIcon(
-                FontAwesomeIcons.shieldHalved,
-                size: 20,
-                color: AppTheme.accentColor,
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0F52BA),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const FaIcon(
+                  FontAwesomeIcons.shieldHalved,
+                  size: 18,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   "Student Verification",
-                  style: GoogleFonts.inter(
+                  style: GoogleFonts.rubik(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: AppTheme.accentColor,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -560,10 +642,10 @@ class SignUpPage extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             "• All information will be verified by administrators\n• Your identity card will be securely stored\n• Only verified students can post items\n• This helps maintain community trust",
-            style: GoogleFonts.inter(
+            style: GoogleFonts.rubik(
               fontSize: 14,
-              color: AppTheme.textSecondary,
-              height: 1.4,
+              color: const Color(0xFF87CEEB),
+              height: 1.5,
             ),
           ),
         ],
@@ -576,7 +658,7 @@ class SignUpPage extends StatelessWidget {
       Container(
         padding: const EdgeInsets.all(24),
         decoration: const BoxDecoration(
-          color: AppTheme.cardColor,
+          color: Color(0xFF1A1A1A),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -589,17 +671,17 @@ class SignUpPage extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: AppTheme.textSecondary.withOpacity(0.3),
+                color: const Color(0xFF87CEEB),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
             Text(
               "Upload Identity Card",
-              style: GoogleFonts.inter(
+              style: GoogleFonts.rubik(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: AppTheme.textPrimary,
+                color: Colors.white,
               ),
             ),
             const SizedBox(height: 24),
@@ -645,23 +727,27 @@ class SignUpPage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
-          color: AppTheme.surfaceColor,
+          color: const Color(0xFF0F52BA).withOpacity(0.1),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: const Color(0xFF0F52BA).withOpacity(0.2),
+            width: 1,
+          ),
         ),
         child: Column(
           children: [
             FaIcon(
               icon,
               size: 24,
-              color: AppTheme.primaryColor,
+              color: const Color(0xFF87CEEB),
             ),
             const SizedBox(height: 8),
             Text(
               label,
-              style: GoogleFonts.inter(
+              style: GoogleFonts.rubik(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: AppTheme.textPrimary,
+                color: Colors.white,
               ),
             ),
           ],

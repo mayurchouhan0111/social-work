@@ -468,6 +468,8 @@ class PostPage extends StatelessWidget {
             Expanded(child: _buildStatusSelection(controller)),
           ],
         ),
+        const SizedBox(height: 24),
+        _buildQuestionsSection(controller),
       ],
     );
   }
@@ -817,6 +819,100 @@ class PostPage extends StatelessWidget {
         ],
       ),
     ));
+  }
+
+  Widget _buildQuestionsSection(PostController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Verification Questions",
+          style: GoogleFonts.inter(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          "Add some questions to verify the owner of the item.",
+          style: GoogleFonts.inter(
+            fontSize: 14,
+            color: const Color(0xFF9E9E9E),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Obx(() => ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: controller.questions.length,
+          itemBuilder: (context, index) {
+            return _buildQuestionField(controller, index);
+          },
+        )),
+        const SizedBox(height: 16),
+        ElevatedButton.icon(
+          onPressed: () => controller.addQuestion(),
+          icon: const Icon(Icons.add, color: Colors.white),
+          label: Text("Add Question", style: GoogleFonts.inter(color: Colors.white)),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppTheme.primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuestionField(PostController controller, int index) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          TextFormField(
+            initialValue: controller.questions[index]['question'],
+            onChanged: (value) => controller.updateQuestion(index, value),
+            style: GoogleFonts.inter(color: Colors.white),
+            decoration: InputDecoration(
+              labelText: "Question ${index + 1}",
+              labelStyle: GoogleFonts.inter(color: AppTheme.primaryColor),
+              hintText: "e.g., What color is the item?",
+              hintStyle: GoogleFonts.inter(color: const Color(0xFF9E9E9E)),
+              border: InputBorder.none,
+            ),
+          ),
+          const SizedBox(height: 8),
+          TextFormField(
+            initialValue: controller.questions[index]['answer'],
+            onChanged: (value) => controller.updateAnswer(index, value),
+            style: GoogleFonts.inter(color: Colors.white),
+            decoration: InputDecoration(
+              labelText: "Answer ${index + 1}",
+              labelStyle: GoogleFonts.inter(color: AppTheme.primaryColor),
+              hintText: "e.g., Blue",
+              hintStyle: GoogleFonts.inter(color: const Color(0xFF9E9E9E)),
+              border: InputBorder.none,
+            ),
+          ),
+          const SizedBox(height: 8),
+          if (controller.questions.length > 1)
+            Align(
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                onPressed: () => controller.removeQuestion(index),
+                icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   Widget _buildSubmitButton(PostController controller, GlobalKey<FormState> formKey) {

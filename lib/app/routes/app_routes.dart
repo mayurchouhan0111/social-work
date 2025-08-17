@@ -9,4 +9,8 @@ abstract class Routes {
   static const signIn = '/signin';
   static const mainNav = '/main-nav';
   static const splash = '/splash';
+  static const claim = '/claim';
+  static const itemClaims = '/item-claims';
+  static const chat = '/chat';
+  static const myChats = '/my-chats';
 }

@@ -180,6 +180,24 @@ class AuthService {
     }
   }
 
+  // Get all verified users (admin function)
+  Future<List<UserModel>> getVerifiedUsers() async {
+    try {
+      final response = await _supabase
+          .from('profiles')
+          .select()
+          .eq('is_verified', true)
+          .order('created_at', ascending: false);
+
+      return (response as List)
+          .map((user) => UserModel.fromMap(user))
+          .toList();
+    } catch (error) {
+      print('Error getting verified users: $error');
+      return [];
+    }
+  }
+
   // Get user by enrollment number (for duplicate check)
   Future<UserModel?> getUserByEnrollmentNumber(String enrollmentNumber) async {
     try {

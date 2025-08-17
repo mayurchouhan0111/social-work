@@ -231,6 +231,31 @@ class AdminPage extends StatelessWidget {
               ),
             ),
           ),
+          Expanded(
+            child: GestureDetector(
+              onTap: () => controller.changeTab(3),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: controller.selectedTab.value == 3
+                      ? AppTheme.primaryColor
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  "Verified Users (${controller.verifiedUsersCount.value})",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: controller.selectedTab.value == 3
+                        ? Colors.white
+                        : const Color(0xFF9E9E9E),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     ));
@@ -272,8 +297,10 @@ class AdminPage extends StatelessWidget {
         return _buildPendingContent(controller);
       } else if (controller.selectedTab.value == 1) {
         return _buildAllPostsContent(controller);
-      } else {
+      } else if (controller.selectedTab.value == 2) {
         return _buildUsersContent(controller);
+      } else {
+        return _buildVerifiedUsersContent(controller);
       }
     });
   }
@@ -306,6 +333,125 @@ class AdminPage extends StatelessWidget {
         ],
       );
     });
+  }
+
+  Widget _buildVerifiedUsersContent(AdminController controller) {
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return _buildLoadingState();
+      }
+
+      if (controller.verifiedUsers.isEmpty) {
+        return _buildEmptyState(message: "No verified users found.");
+      }
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Verified Users",
+            style: GoogleFonts.inter(
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 24),
+          ...controller.verifiedUsers.map((user) {
+            return _buildVerifiedUserCard(controller, user);
+          }).toList(),
+        ],
+      );
+    });
+  }
+
+  Widget _buildVerifiedUserCard(AdminController controller, UserModel user) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.green.withOpacity(0.3), width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                user.name ?? 'No Name',
+                style: GoogleFonts.inter(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () => _showIdCard(user.identityCardImageUrl ?? ''),
+                icon: const Icon(Icons.credit_card, color: AppTheme.primaryColor),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            user.email,
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              color: const Color(0xFF9E9E9E),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Enrollment: ${user.enrollmentNumber ?? 'N/A'}',
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              color: const Color(0xFF9E9E9E),
+            ),
+          ),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => controller.unverifyUser(user.id),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const FaIcon(FontAwesomeIcons.userSlash, size: 16, color: Colors.white),
+                      const SizedBox(width: 8),
+                      Text(
+                        "Un-verify",
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildUserCard(AdminController controller, UserModel user) {
