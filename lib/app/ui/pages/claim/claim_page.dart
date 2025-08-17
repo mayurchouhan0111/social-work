@@ -65,7 +65,7 @@ class ClaimPage extends StatelessWidget {
               children: [
                 Text(
                   'Claim Item',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -73,7 +73,7 @@ class ClaimPage extends StatelessWidget {
                 ),
                 Text(
                   'Verify your identity',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 12,
                     color: const Color(0xFF87CEEB),
                     fontWeight: FontWeight.w400,
@@ -174,7 +174,7 @@ class ClaimPage extends StatelessWidget {
                           children: [
                             Text(
                               item.title,
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.archivo(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
@@ -185,7 +185,7 @@ class ClaimPage extends StatelessWidget {
                             const SizedBox(height: 4),
                             Text(
                               item.description,
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.archivo(
                                 fontSize: 14,
                                 color: const Color(0xFF87CEEB),
                                 fontWeight: FontWeight.w400,
@@ -226,7 +226,7 @@ class ClaimPage extends StatelessWidget {
                           children: [
                             Text(
                               'Verification Required',
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.archivo(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
@@ -234,7 +234,7 @@ class ClaimPage extends StatelessWidget {
                             ),
                             Text(
                               'Answer the following questions to claim the item:',
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.archivo(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: const Color(0xFF87CEEB),
@@ -338,7 +338,7 @@ class ClaimPage extends StatelessWidget {
                         const SizedBox(width: 12),
                         Text(
                           'Submit Claim',
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.archivo(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
@@ -391,7 +391,7 @@ class ClaimPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '${index + 1}',
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.archivo(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
@@ -403,7 +403,7 @@ class ClaimPage extends StatelessWidget {
                 Expanded(
                   child: Text(
                     question,
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.archivo(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
@@ -437,7 +437,7 @@ class ClaimPage extends StatelessWidget {
             ),
             child: TextFormField(
               onChanged: (value) => controller.updateAnswer(index, value),
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 16,
                 color: Colors.white,
                 fontWeight: FontWeight.w400,
@@ -446,7 +446,7 @@ class ClaimPage extends StatelessWidget {
               minLines: 3,
               decoration: InputDecoration(
                 hintText: 'Your answer...',
-                hintStyle: GoogleFonts.rubik(
+                hintStyle: GoogleFonts.archivo(
                   color: Colors.white70,
                   fontSize: 16,
                 ),

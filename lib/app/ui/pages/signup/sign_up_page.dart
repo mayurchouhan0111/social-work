@@ -29,17 +29,17 @@ class SignUpPage extends StatelessWidget {
     final obscureConfirmPassword = true.obs;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF000000),
+      backgroundColor: AppTheme.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Container(
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: const Color(0xFF1A1A1A),
+            color: AppTheme.surface,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: const Color(0xFF0F52BA).withOpacity(0.2),
+              color: AppTheme.accent2.withOpacity(0.2),
               width: 1,
             ),
           ),
@@ -47,7 +47,7 @@ class SignUpPage extends StatelessWidget {
             icon: const FaIcon(
               FontAwesomeIcons.chevronLeft,
               size: 16,
-              color: Color(0xFF87CEEB),
+              color: AppTheme.accent1,
             ),
             onPressed: () => Get.back(),
           ),
@@ -66,11 +66,11 @@ class SignUpPage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(32),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF0F52BA),
+                      color: AppTheme.accent2,
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF0F52BA).withOpacity(0.3),
+                          color: AppTheme.accent2.withOpacity(0.3),
                           blurRadius: 15,
                           offset: const Offset(0, 8),
                         ),
@@ -79,7 +79,7 @@ class SignUpPage extends StatelessWidget {
                     child: const FaIcon(
                       FontAwesomeIcons.graduationCap,
                       size: 56,
-                      color: Colors.white,
+                      color: AppTheme.primaryText,
                     ),
                   ),
 
@@ -88,10 +88,10 @@ class SignUpPage extends StatelessWidget {
                   // Title
                   Text(
                     "Student Registration",
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.archivo(
                       fontSize: 36,
                       fontWeight: FontWeight.w800,
-                      color: Colors.white,
+                      color: AppTheme.primaryText,
                       letterSpacing: -0.5,
                     ),
                     textAlign: TextAlign.center,
@@ -101,10 +101,10 @@ class SignUpPage extends StatelessWidget {
 
                   Text(
                     "Join the treasure hunt community",
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.archivo(
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
-                      color: const Color(0xFF87CEEB),
+                      color: AppTheme.accent1,
                       letterSpacing: 0.5,
                     ),
                     textAlign: TextAlign.center,
@@ -162,7 +162,7 @@ class SignUpPage extends StatelessWidget {
                         child: FaIcon(
                           obscurePassword.value ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
                           size: 16,
-                          color: Colors.white60,
+                          color: AppTheme.secondaryText,
                         ),
                       ),
                     ),
@@ -184,7 +184,7 @@ class SignUpPage extends StatelessWidget {
                         child: FaIcon(
                           obscureConfirmPassword.value ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
                           size: 16,
-                          color: Colors.white60,
+                          color: AppTheme.secondaryText,
                         ),
                       ),
                     ),
@@ -229,18 +229,18 @@ class SignUpPage extends StatelessWidget {
                     child: RichText(
                       text: TextSpan(
                         text: "Already have an account? ",
-                        style: GoogleFonts.rubik(
+                        style: GoogleFonts.archivo(
                           fontSize: 16,
-                          color: Colors.white70,
+                          color: AppTheme.secondaryText,
                           fontWeight: FontWeight.w400,
                         ),
                         children: [
                           TextSpan(
                             text: "Sign In",
-                            style: GoogleFonts.rubik(
+                            style: GoogleFonts.archivo(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: const Color(0xFF87CEEB),
+                              color: AppTheme.accent1,
                             ),
                           ),
                         ],
@@ -259,10 +259,10 @@ class SignUpPage extends StatelessWidget {
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: GoogleFonts.rubik(
+      style: GoogleFonts.archivo(
         fontSize: 18,
         fontWeight: FontWeight.w700,
-        color: Colors.white,
+        color: AppTheme.primaryText,
         letterSpacing: 0.5,
       ),
     );
@@ -280,15 +280,15 @@ class SignUpPage extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1A1A),
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFF0F52BA).withOpacity(0.2),
+          color: AppTheme.accent2.withOpacity(0.2),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: AppTheme.surface.withOpacity(0.2),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -299,9 +299,9 @@ class SignUpPage extends StatelessWidget {
         keyboardType: keyboardType,
         obscureText: obscureText,
         onChanged: onChanged,
-        style: GoogleFonts.rubik(
+        style: GoogleFonts.archivo(
           fontSize: 16,
-          color: Colors.white,
+          color: AppTheme.primaryText,
           fontWeight: FontWeight.w400,
         ),
         decoration: InputDecoration(
@@ -313,7 +313,7 @@ class SignUpPage extends StatelessWidget {
             child: FaIcon(
               icon,
               size: 18,
-              color: const Color(0xFF87CEEB),
+              color: AppTheme.accent1,
             ),
           ),
           suffixIcon: suffixIcon,
@@ -328,21 +328,21 @@ class SignUpPage extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide(
-              color: const Color(0xFF0F52BA),
+              color: AppTheme.accent2,
               width: 2,
             ),
           ),
-          labelStyle: GoogleFonts.rubik(
-            color: const Color(0xFF87CEEB),
+          labelStyle: GoogleFonts.archivo(
+            color: AppTheme.accent1,
             fontSize: 16,
           ),
-          floatingLabelStyle: GoogleFonts.rubik(
-            color: const Color(0xFF87CEEB),
+          floatingLabelStyle: GoogleFonts.archivo(
+            color: AppTheme.accent1,
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
-          hintStyle: GoogleFonts.rubik(
-            color: Colors.white70,
+          hintStyle: GoogleFonts.archivo(
+            color: AppTheme.secondaryText,
             fontSize: 16,
           ),
           contentPadding: const EdgeInsets.symmetric(
@@ -363,15 +363,15 @@ class SignUpPage extends StatelessWidget {
         width: double.infinity,
         height: 180,
         decoration: BoxDecoration(
-          color: const Color(0xFF1A1A1A),
+          color: AppTheme.surface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: const Color(0xFF0F52BA).withOpacity(0.2),
+            color: AppTheme.accent2.withOpacity(0.2),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: AppTheme.surface.withOpacity(0.2),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -382,15 +382,15 @@ class SignUpPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(Color(0xFF87CEEB)),
+              valueColor: AlwaysStoppedAnimation(AppTheme.accent1),
               strokeWidth: 2.5,
             ),
             const SizedBox(height: 12),
             Text(
               "Uploading identity card...",
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 14,
-                color: Colors.white70,
+                color: AppTheme.secondaryText,
               ),
             ),
           ],
@@ -420,19 +420,19 @@ class SignUpPage extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF0F52BA),
+                      color: AppTheme.accent2,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.verified, color: Colors.white, size: 14),
+                        const Icon(Icons.verified, color: AppTheme.primaryText, size: 14),
                         const SizedBox(width: 4),
                         Text(
                           "Uploaded",
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.archivo(
                             fontSize: 10,
-                            color: Colors.white,
+                            color: AppTheme.primaryText,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -451,10 +451,10 @@ class SignUpPage extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
+                      color: AppTheme.surface.withOpacity(0.6),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(Icons.close, color: Colors.white, size: 16),
+                    child: const Icon(Icons.close, color: AppTheme.primaryText, size: 16),
                   ),
                 ),
               ),
@@ -467,30 +467,30 @@ class SignUpPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF0F52BA).withOpacity(0.1),
+                color: AppTheme.accent2.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const FaIcon(
                 FontAwesomeIcons.idCard,
                 size: 28,
-                color: Color(0xFF87CEEB),
+                color: AppTheme.accent1,
               ),
             ),
             const SizedBox(height: 12),
             Text(
               "Upload Identity Card",
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Colors.white,
+                color: AppTheme.primaryText,
               ),
             ),
             const SizedBox(height: 4),
             Text(
               "Required for student verification",
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 12,
-                color: const Color(0xFF87CEEB),
+                color: AppTheme.accent1,
               ),
             ),
           ],
@@ -510,12 +510,12 @@ class SignUpPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 18),
         decoration: BoxDecoration(
           color: controller.isLoading.value || controller.isUploadingIdentityCard.value
-              ? const Color(0xFF1A1A1A)
-              : const Color(0xFF0F52BA),
+              ? AppTheme.surface
+              : AppTheme.accent2,
           borderRadius: BorderRadius.circular(16),
           border: controller.isLoading.value || controller.isUploadingIdentityCard.value
               ? Border.all(
-            color: const Color(0xFF0F52BA).withOpacity(0.3),
+            color: AppTheme.accent2.withOpacity(0.3),
             width: 1,
           )
               : null,
@@ -523,7 +523,7 @@ class SignUpPage extends StatelessWidget {
               ? []
               : [
             BoxShadow(
-              color: const Color(0xFF0F52BA).withOpacity(0.3),
+              color: AppTheme.accent2.withOpacity(0.3),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -538,16 +538,16 @@ class SignUpPage extends StatelessWidget {
               height: 20,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation(Color(0xFF87CEEB)),
+                valueColor: AlwaysStoppedAnimation(AppTheme.accent1),
               ),
             ),
             const SizedBox(width: 12),
             Text(
               "Uploading Identity Card...",
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Colors.white70,
+                color: AppTheme.secondaryText,
               ),
             ),
           ]
@@ -558,16 +558,16 @@ class SignUpPage extends StatelessWidget {
               height: 20,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation(Color(0xFF87CEEB)),
+                valueColor: AlwaysStoppedAnimation(AppTheme.accent1),
               ),
             ),
             const SizedBox(width: 12),
             Text(
               "Creating Account...",
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Colors.white70,
+                color: AppTheme.secondaryText,
               ),
             ),
           ]
@@ -575,15 +575,15 @@ class SignUpPage extends StatelessWidget {
             const FaIcon(
               FontAwesomeIcons.graduationCap,
               size: 18,
-              color: Colors.white,
+              color: AppTheme.primaryText,
             ),
             const SizedBox(width: 12),
             Text(
               "Create Student Account",
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Colors.white,
+                color: AppTheme.primaryText,
               ),
             ),
           ],
@@ -596,15 +596,15 @@ class SignUpPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1A1A),
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFF0F52BA).withOpacity(0.2),
+          color: AppTheme.accent2.withOpacity(0.2),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: AppTheme.surface.withOpacity(0.2),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -617,23 +617,23 @@ class SignUpPage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0F52BA),
+                  color: AppTheme.accent2,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const FaIcon(
                   FontAwesomeIcons.shieldHalved,
                   size: 18,
-                  color: Colors.white,
+                  color: AppTheme.primaryText,
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   "Student Verification",
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: AppTheme.primaryText,
                   ),
                 ),
               ),
@@ -642,9 +642,9 @@ class SignUpPage extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             "• All information will be verified by administrators\n• Your identity card will be securely stored\n• Only verified students can post items\n• This helps maintain community trust",
-            style: GoogleFonts.rubik(
+            style: GoogleFonts.archivo(
               fontSize: 14,
-              color: const Color(0xFF87CEEB),
+              color: AppTheme.accent1,
               height: 1.5,
             ),
           ),
@@ -658,7 +658,7 @@ class SignUpPage extends StatelessWidget {
       Container(
         padding: const EdgeInsets.all(24),
         decoration: const BoxDecoration(
-          color: Color(0xFF1A1A1A),
+          color: AppTheme.surface,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -671,17 +671,17 @@ class SignUpPage extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: const Color(0xFF87CEEB),
+                color: AppTheme.accent1,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
             const SizedBox(height: 20),
             Text(
               "Upload Identity Card",
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: Colors.white,
+                color: AppTheme.primaryText,
               ),
             ),
             const SizedBox(height: 24),
@@ -727,10 +727,10 @@ class SignUpPage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
-          color: const Color(0xFF0F52BA).withOpacity(0.1),
+          color: AppTheme.accent2.withOpacity(0.1),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: const Color(0xFF0F52BA).withOpacity(0.2),
+            color: AppTheme.accent2.withOpacity(0.2),
             width: 1,
           ),
         ),
@@ -739,15 +739,15 @@ class SignUpPage extends StatelessWidget {
             FaIcon(
               icon,
               size: 24,
-              color: const Color(0xFF87CEEB),
+              color: AppTheme.accent1,
             ),
             const SizedBox(height: 8),
             Text(
               label,
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: Colors.white,
+                color: AppTheme.primaryText,
               ),
             ),
           ],

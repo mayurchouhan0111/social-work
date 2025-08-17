@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
 const admin = require('firebase-admin'); // Firebase Admin SDK
 
 const app = express();
@@ -8,8 +8,14 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// --- SendGrid Setup ---
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// --- Nodemailer Setup ---
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
 // Admin email
 const ADMIN_EMAIL = 'mayurchouhan8055@gmail.com';
@@ -30,7 +36,7 @@ app.post('/notify-admin', async (req, res) => {
 
   if (!itemId || !collectionType || !itemData) {
     return res.status(400).json({
-      error: 'Missing required fields: itemId, collectionType, itemData'
+      error: 'Missing required fields: itemId, collectionType, itemData',
     });
   }
 
@@ -67,21 +73,18 @@ app.post('/notify-admin', async (req, res) => {
       <p>This email was sent from your Treasure Hunt app backend.</p>
     `;
 
-    const msg = {
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
       to: ADMIN_EMAIL,
-      from: 'no-reply@yourdomain.com', // ⚠️ Use verified sender email in SendGrid
       subject: emailSubject,
-      html: emailBody
+      html: emailBody,
     };
 
-    await sgMail.send(msg);
+    await transporter.sendMail(mailOptions);
     console.log('Admin notification email sent successfully.');
     res.status(200).json({ message: 'Admin notification email sent!' });
   } catch (error) {
     console.error('Error sending email:', error.message);
-    if (error.response) {
-      console.error(error.response.body);
-    }
     res.status(500).json({ error: 'Failed to send email.' });
   }
 });

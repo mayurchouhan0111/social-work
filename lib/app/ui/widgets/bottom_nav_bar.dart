@@ -35,7 +35,7 @@ class MainNavPage extends StatelessWidget {
           // Web/Desktop layout (NavigationRail)
           if (constraints.maxWidth >= 768) {
             return Scaffold(
-              backgroundColor: AppTheme.backgroundColor,
+              backgroundColor: AppTheme.background,
               body: SafeArea(
                 child: Row(
                   children: [
@@ -61,7 +61,7 @@ class MainNavPage extends StatelessWidget {
           // Mobile layout (BottomNavigationBar)
           else {
             return Scaffold(
-              backgroundColor: AppTheme.backgroundColor,
+              backgroundColor: AppTheme.background,
               body: SafeArea(
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 250),
@@ -96,7 +96,7 @@ class MainNavPage extends StatelessWidget {
   Widget _buildNavigationRail(MainNavController navController, BuildContext context) {
     return Obx(() => Container(
       width: 280,
-      color: AppTheme.surfaceColor,
+      color: AppTheme.surface,
       child: Column(
         children: [
           // Logo/Header section
@@ -108,7 +108,7 @@ class MainNavPage extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [AppTheme.primaryColor, AppTheme.accentColor],
+                      colors: [AppTheme.accent2, AppTheme.accent1],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -126,7 +126,7 @@ class MainNavPage extends StatelessWidget {
                   style: GoogleFonts.inter(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
-                    color: AppTheme.textPrimary,
+                    color: AppTheme.primaryText,
                   ),
                 ),
               ],
@@ -237,7 +237,7 @@ class MainNavPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             color: isSelected
-                ? (isAdmin ? Colors.red.withOpacity(0.15) : AppTheme.primaryColor.withOpacity(0.15))
+                ? (isAdmin ? Colors.red.withOpacity(0.15) : AppTheme.accent2.withOpacity(0.15))
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
           ),
@@ -247,8 +247,8 @@ class MainNavPage extends StatelessWidget {
                 isSelected ? activeIcon : icon,
                 size: 20,
                 color: isSelected
-                    ? (isAdmin ? Colors.red : AppTheme.primaryColor)
-                    : AppTheme.textSecondary,
+                    ? (isAdmin ? Colors.red : AppTheme.accent2)
+                    : AppTheme.secondaryText,
               ),
               const SizedBox(width: 16),
               Text(
@@ -257,8 +257,8 @@ class MainNavPage extends StatelessWidget {
                   fontSize: 14,
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                   color: isSelected
-                      ? (isAdmin ? Colors.red : AppTheme.primaryColor)
-                      : AppTheme.textPrimary,
+                      ? (isAdmin ? Colors.red : AppTheme.accent2)
+                      : AppTheme.primaryText,
                 ),
               ),
             ],
@@ -313,10 +313,10 @@ class MainNavPage extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
         height: 75,
         decoration: BoxDecoration(
-          color: AppTheme.cardColor.withOpacity(0.95),
+          color: AppTheme.elevatedSurface.withOpacity(0.95),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: AppTheme.surfaceColor.withOpacity(0.5),
+            color: AppTheme.surface.withOpacity(0.5),
             width: 1,
           ),
           boxShadow: [
@@ -361,7 +361,7 @@ class MainNavPage extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: isSelected
-              ? (isAdmin ? Colors.red.withOpacity(0.15) : AppTheme.primaryColor.withOpacity(0.15))
+              ? (isAdmin ? Colors.red.withOpacity(0.15) : AppTheme.accent2.withOpacity(0.15))
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
@@ -373,8 +373,8 @@ class MainNavPage extends StatelessWidget {
               isSelected ? activeIcon : icon,
               size: isCenter ? 24 : 20,
               color: isSelected
-                  ? (isAdmin ? Colors.red : AppTheme.primaryColor)
-                  : AppTheme.textSecondary,
+                  ? (isAdmin ? Colors.red : AppTheme.accent2)
+                  : AppTheme.secondaryText,
             ),
             const SizedBox(height: 4),
             AnimatedOpacity(
@@ -385,7 +385,7 @@ class MainNavPage extends StatelessWidget {
                 style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  color: isAdmin ? Colors.red : AppTheme.primaryColor,
+                  color: isAdmin ? Colors.red : AppTheme.accent2,
                 ),
               ),
             ),

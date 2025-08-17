@@ -62,7 +62,7 @@ class ChatPage extends StatelessWidget {
               children: [
                 Text(
                   'Chat',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -70,7 +70,7 @@ class ChatPage extends StatelessWidget {
                 ),
                 Text(
                   'Treasure Hunt Support',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 12,
                     color: const Color(0xFF87CEEB),
                     fontWeight: FontWeight.w400,
@@ -103,7 +103,7 @@ class ChatPage extends StatelessWidget {
                   const SizedBox(width: 6),
                   Text(
                     'Mark as Solved',
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.archivo(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -232,7 +232,7 @@ class ChatPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     message.message,
-                                    style: GoogleFonts.rubik(
+                                    style: GoogleFonts.archivo(
                                       fontSize: 16,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w400,
@@ -245,7 +245,7 @@ class ChatPage extends StatelessWidget {
                                     children: [
                                       Text(
                                         _getSenderName(message.senderId, isOwnMessage),
-                                        style: GoogleFonts.rubik(
+                                        style: GoogleFonts.archivo(
                                           fontSize: 12,
                                           color: isOwnMessage
                                               ? Colors.white.withOpacity(0.7)
@@ -349,14 +349,14 @@ class ChatPage extends StatelessWidget {
               ),
               child: TextField(
                 controller: controller.messageController,
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.archivo(
                   fontSize: 16,
                   color: Colors.white,
                   fontWeight: FontWeight.w400,
                 ),
                 decoration: InputDecoration(
                   hintText: 'Type a message...',
-                  hintStyle: GoogleFonts.rubik(
+                  hintStyle: GoogleFonts.archivo(
                     color: Colors.white70,
                     fontSize: 16,
                   ),

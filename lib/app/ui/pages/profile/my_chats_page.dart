@@ -62,7 +62,7 @@ class MyChatsPage extends StatelessWidget {
               children: [
                 Text(
                   'My Chats',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -70,7 +70,7 @@ class MyChatsPage extends StatelessWidget {
                 ),
                 Text(
                   'All conversations',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 12,
                     color: const Color(0xFF87CEEB),
                     fontWeight: FontWeight.w400,
@@ -154,7 +154,7 @@ class MyChatsPage extends StatelessWidget {
                   ),
                   title: Text(
                     'Chat with ${chat['users'].firstWhere((id) => id != controller.authController.user.value?.id)}',
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.archivo(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
@@ -162,7 +162,7 @@ class MyChatsPage extends StatelessWidget {
                   ),
                   subtitle: Text(
                     chat['lastMessage'] ?? 'No messages yet',
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.archivo(
                       color: const Color(0xFF87CEEB),
                       fontSize: 14,
                     ),
@@ -218,7 +218,7 @@ class MyChatsPage extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               'No chats yet',
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
@@ -228,7 +228,7 @@ class MyChatsPage extends StatelessWidget {
             Text(
               'Start a conversation by claiming an item\nor responding to a claim',
               textAlign: TextAlign.center,
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 16,
                 color: const Color(0xFF87CEEB),
                 height: 1.4,
@@ -261,7 +261,7 @@ class MyChatsPage extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Browse Items',
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.archivo(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,

@@ -146,7 +146,7 @@ class MinimalItemDetailPage extends StatelessWidget {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primaryColor,
+                  backgroundColor: AppTheme.accent2,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -196,7 +196,7 @@ class MinimalItemDetailPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () => Get.back(),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primaryColor,
+                    backgroundColor: AppTheme.accent2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -463,7 +463,7 @@ class MinimalItemDetailPage extends StatelessWidget {
                   child: Text(
                     'Close',
                     style: GoogleFonts.inter(
-                      color: AppTheme.primaryColor,
+                      color: AppTheme.accent2,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

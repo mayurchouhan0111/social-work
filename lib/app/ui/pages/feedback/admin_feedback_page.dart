@@ -36,7 +36,7 @@ class AdminFeedbackPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
                 child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
+              valueColor: AlwaysStoppedAnimation<Color>(AppTheme.accent2),
             ));
           }
           if (snapshot.data != true) {
@@ -68,7 +68,7 @@ class AdminFeedbackPage extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
               child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
+            valueColor: AlwaysStoppedAnimation<Color>(AppTheme.accent2),
           ));
         }
 
@@ -210,7 +210,7 @@ class AdminFeedbackPage extends StatelessWidget {
       Get.snackbar(
         'Success',
         'Status updated to $newStatus',
-        backgroundColor: AppTheme.primaryColor,
+        backgroundColor: AppTheme.accent2,
         colorText: Colors.white,
       );
     } catch (e) {

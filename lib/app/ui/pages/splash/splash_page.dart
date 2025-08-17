@@ -272,7 +272,7 @@ class _SplashPageState extends State<SplashPage>
     return SizedBox(
       width: 300,
       child: DefaultTextStyle(
-        style: GoogleFonts.rubik(
+        style: GoogleFonts.archivo(
           fontSize: 22,
           fontWeight: FontWeight.w400,
           color: Colors.white60,
@@ -347,7 +347,7 @@ class _SplashPageState extends State<SplashPage>
                         opacity: _titleFade,
                         child: Text(
                           "Treasure Hunt",
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.archivo(
                             fontSize: 42,
                             fontWeight: FontWeight.w800,
                             color: Colors.white,

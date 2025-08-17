@@ -67,7 +67,7 @@ class _FeedbackReportPageState extends State<FeedbackReportPage>
         Get.snackbar(
           'Success',
           'Your $type has been submitted.',
-          backgroundColor: AppTheme.primaryColor,
+          backgroundColor: AppTheme.accent2,
           colorText: Colors.white,
         );
 
@@ -99,7 +99,7 @@ class _FeedbackReportPageState extends State<FeedbackReportPage>
         backgroundColor: const Color(0xFF1A1A1A),
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: AppTheme.primaryColor,
+          indicatorColor: AppTheme.accent2,
           labelStyle: GoogleFonts.inter(fontWeight: FontWeight.w600),
           unselectedLabelStyle: GoogleFonts.inter(),
           tabs: const [
@@ -127,12 +127,12 @@ class _FeedbackReportPageState extends State<FeedbackReportPage>
               _isLoading
                   ? const CircularProgressIndicator(
                       valueColor:
-                          AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
+                          AlwaysStoppedAnimation<Color>(AppTheme.accent2),
                     )
                   : ElevatedButton(
                       onPressed: _submit,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor,
+                        backgroundColor: AppTheme.accent2,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 50, vertical: 15),
                         textStyle: GoogleFonts.inter(

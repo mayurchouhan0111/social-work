@@ -155,10 +155,10 @@ class HomePage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         decoration: BoxDecoration(
-          color: AppTheme.primaryColor.withOpacity(0.2),
+          color: AppTheme.accent2.withOpacity(0.2),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-              color: AppTheme.primaryColor.withOpacity(0.3)
+              color: AppTheme.accent2.withOpacity(0.3)
           ),
         ),
         child: Row(
@@ -167,7 +167,7 @@ class HomePage extends StatelessWidget {
             FaIcon(
               FontAwesomeIcons.filter,
               size: 14,
-              color: AppTheme.primaryColor,
+              color: AppTheme.accent2,
             ),
             const SizedBox(width: 8),
             Text(
@@ -175,7 +175,7 @@ class HomePage extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: AppTheme.primaryColor,
+                color: AppTheme.accent2,
               ),
             ),
           ],
@@ -408,7 +408,7 @@ class HomePage extends StatelessWidget {
                           "View Details",
                           style: GoogleFonts.inter(
                             fontSize: 10,
-                            color: AppTheme.primaryColor,
+                            color: AppTheme.accent2,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -566,7 +566,7 @@ class HomePage extends StatelessWidget {
                       FaIcon(
                         FontAwesomeIcons.locationDot,
                         size: 14,
-                        color: AppTheme.primaryColor,
+                        color: AppTheme.accent2,
                       ),
                       const SizedBox(width: 8),
                       Expanded(
@@ -584,14 +584,14 @@ class HomePage extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: AppTheme.primaryColor.withOpacity(0.2),
+                          color: AppTheme.accent2.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
                           "View Details",
                           style: GoogleFonts.inter(
                             fontSize: 12,
-                            color: AppTheme.primaryColor,
+                            color: AppTheme.accent2,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -653,7 +653,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
             child: const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(AppTheme.primaryColor),
+              valueColor: AlwaysStoppedAnimation(AppTheme.accent2),
             ),
           ),
           const SizedBox(height: 24),
@@ -680,14 +680,14 @@ class HomePage extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: AppTheme.primaryColor.withOpacity(0.2),
+                color: AppTheme.accent2.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
                 child: FaIcon(
                   FontAwesomeIcons.magnifyingGlass,
                   size: 32,
-                  color: AppTheme.primaryColor,
+                  color: AppTheme.accent2,
                 ),
               ),
             ),
@@ -733,12 +733,12 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [AppTheme.primaryColor, AppTheme.accentColor],
+                    colors: [AppTheme.accent2, AppTheme.accent1],
                   ),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: AppTheme.primaryColor.withOpacity(0.3),
+                      color: AppTheme.accent2.withOpacity(0.3),
                       blurRadius: 15,
                       offset: const Offset(0, 8),
                     ),
@@ -858,7 +858,7 @@ class HomePage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () => Get.back(),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primaryColor,
+                  backgroundColor: AppTheme.accent2,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -891,12 +891,12 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppTheme.primaryColor
+              ? AppTheme.accent2
               : const Color(0xFF2A2A2A),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: isSelected
-                ? AppTheme.primaryColor
+                ? AppTheme.accent2
                 : const Color(0xFF2A2A2A),
           ),
         ),

@@ -15,7 +15,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ProfileController());
     return Scaffold(
-      backgroundColor: const Color(0xFF000000),
+      backgroundColor: AppTheme.background,
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth >= 768) {
@@ -38,11 +38,11 @@ class ProfilePage extends StatelessWidget {
             horizontal: constraints.maxWidth > 1200 ? 80 : 40,
             vertical: 32,
           ),
-          decoration: const BoxDecoration(
-            color: Color(0xFF1A1A1A),
+          decoration: BoxDecoration(
+            color: AppTheme.surface,
             boxShadow: [
               BoxShadow(
-                color: Colors.black26,
+                color: AppTheme.surface.withOpacity(0.26),
                 blurRadius: 15,
                 offset: Offset(0, 4),
               ),
@@ -55,13 +55,13 @@ class ProfilePage extends StatelessWidget {
                 height: 60,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFF0F52BA), Color(0xFF87CEEB)],
+                    colors: [AppTheme.accent2, AppTheme.accent1],
                   ),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: const Icon(
                   Icons.person_rounded,
-                  color: Colors.white,
+                  color: AppTheme.primaryText,
                   size: 30,
                 ),
               ),
@@ -71,18 +71,18 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   Text(
                     "Profile",
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.archivo(
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: AppTheme.primaryText,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     "Manage your account information and settings",
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.archivo(
                       fontSize: 14,
-                      color: const Color(0xFF87CEEB),
+                      color: AppTheme.accent1,
                     ),
                   ),
                 ],
@@ -120,18 +120,18 @@ class ProfilePage extends StatelessWidget {
       children: [
         // Enhanced Mobile Header
         AppBar(
-          backgroundColor: const Color(0xFF1A1A1A),
+          backgroundColor: AppTheme.surface,
           elevation: 0,
           leading: Container(
             margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: const Color(0xFF0F52BA).withOpacity(0.1),
+              color: AppTheme.accent2.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios,
-                color: Color(0xFF87CEEB),
+                color: AppTheme.accent1,
                 size: 20,
               ),
               onPressed: () => Get.back(),
@@ -139,10 +139,10 @@ class ProfilePage extends StatelessWidget {
           ),
           title: Text(
             "Profile",
-            style: GoogleFonts.rubik(
+            style: GoogleFonts.archivo(
               fontSize: 20,
               fontWeight: FontWeight.w600,
-              color: Colors.white,
+              color: AppTheme.primaryText,
             ),
           ),
           centerTitle: true,
@@ -150,14 +150,14 @@ class ProfilePage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
-                color: const Color(0xFF0F52BA).withOpacity(0.1),
+                color: AppTheme.accent2.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.arrowsRotate,
                   size: 16,
-                  color: Color(0xFF87CEEB),
+                  color: AppTheme.accent1,
                 ),
                 onPressed: () => controller.refreshProfile(),
               ),
@@ -168,8 +168,8 @@ class ProfilePage extends StatelessWidget {
         Expanded(
           child: RefreshIndicator(
             onRefresh: () => controller.refreshProfile(),
-            color: const Color(0xFF87CEEB),
-            backgroundColor: const Color(0xFF1A1A1A),
+            color: AppTheme.accent1,
+            backgroundColor: AppTheme.surface,
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.all(20),
@@ -208,15 +208,15 @@ class ProfilePage extends StatelessWidget {
   Widget _buildUserPostsSection(ProfileController controller) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1A1A),
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: const Color(0xFF0F52BA).withOpacity(0.2),
+          color: AppTheme.accent2.withOpacity(0.2),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: AppTheme.surface.withOpacity(0.3),
             blurRadius: 15,
             offset: const Offset(0, 6),
           ),
@@ -256,10 +256,10 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ],
-                labelColor: const Color(0xFF87CEEB),
-                unselectedLabelColor: Colors.white60,
-                indicatorColor: const Color(0xFF87CEEB),
-                labelStyle: GoogleFonts.rubik(fontWeight: FontWeight.w600),
+                labelColor: AppTheme.accent1,
+                unselectedLabelColor: AppTheme.secondaryText,
+                indicatorColor: AppTheme.accent1,
+                labelStyle: GoogleFonts.archivo(fontWeight: FontWeight.w600),
               ),
             ),
             SizedBox(
@@ -286,13 +286,13 @@ class ProfilePage extends StatelessWidget {
             Icon(
               Icons.inbox_outlined,
               size: 48,
-              color: Colors.white30,
+              color: AppTheme.secondaryText,
             ),
             const SizedBox(height: 16),
             Text(
               'No items yet',
-              style: GoogleFonts.rubik(
-                color: Colors.white60,
+              style: GoogleFonts.archivo(
+                color: AppTheme.secondaryText,
                 fontSize: 16,
               ),
             ),
@@ -310,10 +310,10 @@ class ProfilePage extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 12),
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color(0xFF000000),
+            color: AppTheme.background,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: const Color(0xFF0F52BA).withOpacity(0.2),
+              color: AppTheme.accent2.withOpacity(0.2),
             ),
           ),
           child: Row(
@@ -323,13 +323,13 @@ class ProfilePage extends StatelessWidget {
                 height: 50,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFF0F52BA), Color(0xFF87CEEB)],
+                    colors: [AppTheme.accent2, AppTheme.accent1],
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
                   Icons.image_rounded,
-                  color: Colors.white,
+                  color: AppTheme.primaryText,
                   size: 24,
                 ),
               ),
@@ -340,8 +340,8 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     Text(
                       item.title,
-                      style: GoogleFonts.rubik(
-                        color: Colors.white,
+                      style: GoogleFonts.archivo(
+                        color: AppTheme.primaryText,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
@@ -350,8 +350,8 @@ class ProfilePage extends StatelessWidget {
                     ),
                     Text(
                       item.location,
-                      style: GoogleFonts.rubik(
-                        color: const Color(0xFF87CEEB),
+                      style: GoogleFonts.archivo(
+                        color: AppTheme.accent1,
                         fontSize: 14,
                       ),
                       maxLines: 1,
@@ -364,7 +364,7 @@ class ProfilePage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => Get.toNamed(Routes.itemClaims, arguments: item),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0F52BA),
+                  backgroundColor: AppTheme.accent2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -372,8 +372,8 @@ class ProfilePage extends StatelessWidget {
                 ),
                 child: Text(
                   'View Claims',
-                  style: GoogleFonts.rubik(
-                    color: Colors.white,
+                  style: GoogleFonts.archivo(
+                    color: AppTheme.primaryText,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
@@ -396,14 +396,14 @@ class ProfilePage extends StatelessWidget {
               height: 120,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFF0F52BA), Color(0xFF87CEEB)],
+                  colors: [AppTheme.accent2, AppTheme.accent1],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(60),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF0F52BA).withOpacity(0.4),
+                    color: AppTheme.accent2.withOpacity(0.4),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -412,7 +412,7 @@ class ProfilePage extends StatelessWidget {
               child: const Icon(
                 Icons.person_rounded,
                 size: 60,
-                color: Colors.white,
+                color: AppTheme.primaryText,
               ),
             ),
             // Verification badge
@@ -424,12 +424,12 @@ class ProfilePage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: controller.verificationStatusColor,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.white, width: 3),
+                  border: Border.all(color: AppTheme.primaryText, width: 3),
                 ),
                 child: Icon(
                   controller.isVerified ? Icons.verified : Icons.pending,
                   size: 16,
-                  color: Colors.white,
+                  color: AppTheme.primaryText,
                 ),
               ),
             ),
@@ -438,18 +438,18 @@ class ProfilePage extends StatelessWidget {
         const SizedBox(height: 16),
         Text(
           controller.displayName,
-          style: GoogleFonts.rubik(
+          style: GoogleFonts.archivo(
             fontSize: 24,
             fontWeight: FontWeight.w700,
-            color: Colors.white,
+            color: AppTheme.primaryText,
           ),
         ),
         const SizedBox(height: 4),
         Text(
           controller.displayEmail,
-          style: GoogleFonts.rubik(
+          style: GoogleFonts.archivo(
             fontSize: 14,
-            color: const Color(0xFF87CEEB),
+            color: AppTheme.accent1,
           ),
         ),
       ],
@@ -512,15 +512,15 @@ class ProfilePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1A1A),
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFF0F52BA).withOpacity(0.2),
+          color: AppTheme.accent2.withOpacity(0.2),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: AppTheme.surface.withOpacity(0.3),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -534,22 +534,22 @@ class ProfilePage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0F52BA).withOpacity(0.2),
+                  color: AppTheme.accent2.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: FaIcon(
                   icon,
                   size: 16,
-                  color: const Color(0xFF87CEEB),
+                  color: AppTheme.accent1,
                 ),
               ),
               const SizedBox(width: 12),
               Text(
                 label,
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.archivo(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
-                  color: const Color(0xFF87CEEB),
+                  color: AppTheme.accent1,
                 ),
               ),
             ],
@@ -557,10 +557,10 @@ class ProfilePage extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             value,
-            style: GoogleFonts.rubik(
+            style: GoogleFonts.archivo(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: valueColor ?? Colors.white,
+              color: valueColor ?? AppTheme.primaryText,
             ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -581,8 +581,8 @@ class ProfilePage extends StatelessWidget {
             Get.snackbar(
               'Edit Profile',
               'Edit profile functionality will be implemented',
-              backgroundColor: const Color(0xFF1A1A1A),
-              colorText: Colors.white,
+              backgroundColor: AppTheme.surface,
+              colorText: AppTheme.primaryText,
             );
           },
           child: Container(
@@ -590,12 +590,12 @@ class ProfilePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [Color(0xFF0F52BA), Color(0xFF87CEEB)],
+                colors: [AppTheme.accent2, AppTheme.accent1],
               ),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF0F52BA).withOpacity(0.4),
+                  color: AppTheme.accent2.withOpacity(0.4),
                   blurRadius: 15,
                   offset: const Offset(0, 8),
                 ),
@@ -609,17 +609,17 @@ class ProfilePage extends StatelessWidget {
                   width: 20,
                   height: 20,
                   child: CircularProgressIndicator(
-                    color: Colors.white,
+                    color: AppTheme.primaryText,
                     strokeWidth: 2,
                   ),
                 ),
                 const SizedBox(width: 12),
                 Text(
                   "Updating...",
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: AppTheme.primaryText,
                   ),
                 ),
               ]
@@ -627,15 +627,15 @@ class ProfilePage extends StatelessWidget {
                 const FaIcon(
                   FontAwesomeIcons.userPen,
                   size: 18,
-                  color: Colors.white,
+                  color: AppTheme.primaryText,
                 ),
                 const SizedBox(width: 12),
                 Text(
                   "Edit Profile",
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: AppTheme.primaryText,
                   ),
                 ),
               ],
@@ -654,8 +654,8 @@ class ProfilePage extends StatelessWidget {
                   Get.snackbar(
                     'Settings',
                     'Settings page will be implemented',
-                    backgroundColor: const Color(0xFF1A1A1A),
-                    colorText: Colors.white,
+                    backgroundColor: AppTheme.surface,
+                    colorText: AppTheme.primaryText,
                   );
                 },
               ),
@@ -697,20 +697,20 @@ class ProfilePage extends StatelessWidget {
     required VoidCallback onTap,
     bool isDestructive = false,
   }) {
-    final color = isDestructive ? Colors.red : const Color(0xFF87CEEB);
+    final color = isDestructive ? Colors.red : AppTheme.accent1;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: const Color(0xFF1A1A1A),
+          color: AppTheme.surface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: color.withOpacity(0.3),
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: AppTheme.surface.withOpacity(0.3),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -727,7 +727,7 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               label,
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: color,
@@ -749,10 +749,10 @@ class ProfilePage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: const Color(0xFF0F52BA).withOpacity(0.2),
+          color: AppTheme.accent2.withOpacity(0.2),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: const Color(0xFF0F52BA).withOpacity(0.3),
+            color: AppTheme.accent2.withOpacity(0.3),
           ),
         ),
         child: Row(
@@ -761,15 +761,15 @@ class ProfilePage extends StatelessWidget {
             FaIcon(
               icon,
               size: 14,
-              color: const Color(0xFF87CEEB),
+              color: AppTheme.accent1,
             ),
             const SizedBox(width: 8),
             Text(
               label,
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: const Color(0xFF87CEEB),
+                color: AppTheme.accent1,
               ),
             ),
           ],
@@ -786,26 +786,26 @@ class ProfilePage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A),
+              color: AppTheme.surface,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
+                  color: AppTheme.surface.withOpacity(0.3),
                   blurRadius: 20,
                   offset: const Offset(0, 8),
                 ),
               ],
             ),
             child: const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(Color(0xFF87CEEB)),
+              valueColor: AlwaysStoppedAnimation(AppTheme.accent1),
             ),
           ),
           const SizedBox(height: 24),
           Text(
             "Loading profile...",
-            style: GoogleFonts.rubik(
+            style: GoogleFonts.archivo(
               fontSize: 16,
-              color: const Color(0xFF87CEEB),
+              color: AppTheme.accent1,
             ),
           ),
         ],
@@ -816,7 +816,7 @@ class ProfilePage extends StatelessWidget {
   void _showSignOutDialog() {
     Get.dialog(
       Dialog(
-        backgroundColor: const Color(0xFF1A1A1A),
+        backgroundColor: AppTheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -825,7 +825,7 @@ class ProfilePage extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: const Color(0xFF0F52BA).withOpacity(0.2),
+              color: AppTheme.accent2.withOpacity(0.2),
             ),
           ),
           child: Column(
@@ -847,19 +847,19 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 "Sign Out",
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.archivo(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  color: AppTheme.primaryText,
                 ),
               ),
               const SizedBox(height: 12),
               Text(
                 "Are you sure you want to sign out of your account?",
                 textAlign: TextAlign.center,
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.archivo(
                   fontSize: 14,
-                  color: const Color(0xFF87CEEB),
+                  color: AppTheme.accent1,
                 ),
               ),
               const SizedBox(height: 24),
@@ -873,8 +873,8 @@ class ProfilePage extends StatelessWidget {
                       ),
                       child: Text(
                         "Cancel",
-                        style: GoogleFonts.rubik(
-                          color: const Color(0xFF87CEEB),
+                        style: GoogleFonts.archivo(
+                          color: AppTheme.accent1,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -895,8 +895,8 @@ class ProfilePage extends StatelessWidget {
                       ),
                       child: Text(
                         "Sign Out",
-                        style: GoogleFonts.rubik(
-                          color: Colors.white,
+                        style: GoogleFonts.archivo(
+                          color: AppTheme.primaryText,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

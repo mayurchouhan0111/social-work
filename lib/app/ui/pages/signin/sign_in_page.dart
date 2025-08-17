@@ -20,7 +20,7 @@ class SignInPage extends StatelessWidget {
     final obscurePassword = true.obs;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF000000),
+      backgroundColor: AppTheme.background,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -36,11 +36,11 @@ class SignInPage extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(40),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF0F52BA),
+                        color: AppTheme.accent2,
                         borderRadius: BorderRadius.circular(28),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF0F52BA).withOpacity(0.5),
+                            color: AppTheme.accent2.withOpacity(0.5),
                             blurRadius: 25,
                             offset: const Offset(0, 12),
                             spreadRadius: 2,
@@ -50,7 +50,7 @@ class SignInPage extends StatelessWidget {
                       child: const FaIcon(
                         FontAwesomeIcons.userShield,
                         size: 64,
-                        color: Colors.white,
+                        color: AppTheme.primaryText,
                       ),
                     ),
 
@@ -59,10 +59,10 @@ class SignInPage extends StatelessWidget {
                     // Title
                     Text(
                       "Welcome Back",
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.archivo(
                         fontSize: 36,
                         fontWeight: FontWeight.w800,
-                        color: Colors.white,
+                        color: AppTheme.primaryText,
                         letterSpacing: -0.5,
                       ),
                       textAlign: TextAlign.center,
@@ -72,10 +72,10 @@ class SignInPage extends StatelessWidget {
 
                     Text(
                       "Sign in to your account",
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.archivo(
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
-                        color: const Color(0xFF87CEEB),
+                        color: AppTheme.accent1,
                         letterSpacing: 0.5,
                       ),
                       textAlign: TextAlign.center,
@@ -86,15 +86,15 @@ class SignInPage extends StatelessWidget {
                     // Email Input Field
                     Container(
                       decoration: BoxDecoration(
-                        color: const Color(0xFF1A1A1A),
+                        color: AppTheme.surface,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: const Color(0xFF0F52BA).withOpacity(0.2),
+                          color: AppTheme.accent2.withOpacity(0.2),
                           width: 1,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: AppTheme.surface.withOpacity(0.2),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -103,9 +103,9 @@ class SignInPage extends StatelessWidget {
                       child: TextField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
-                        style: GoogleFonts.rubik(
+                        style: GoogleFonts.archivo(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: AppTheme.primaryText,
                           fontWeight: FontWeight.w400,
                         ),
                         decoration: InputDecoration(
@@ -117,7 +117,7 @@ class SignInPage extends StatelessWidget {
                             child: FaIcon(
                               FontAwesomeIcons.envelope,
                               size: 18,
-                              color: const Color(0xFF87CEEB),
+                              color: AppTheme.accent1,
                             ),
                           ),
                           border: OutlineInputBorder(
@@ -131,21 +131,21 @@ class SignInPage extends StatelessWidget {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide(
-                              color: const Color(0xFF0F52BA),
+                              color: AppTheme.accent2,
                               width: 2,
                             ),
                           ),
-                          labelStyle: GoogleFonts.rubik(
-                            color: const Color(0xFF87CEEB),
+                          labelStyle: GoogleFonts.archivo(
+                            color: AppTheme.accent1,
                             fontSize: 16,
                           ),
-                          floatingLabelStyle: GoogleFonts.rubik(
-                            color: const Color(0xFF87CEEB),
+                          floatingLabelStyle: GoogleFonts.archivo(
+                            color: AppTheme.accent1,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
-                          hintStyle: GoogleFonts.rubik(
-                            color: Colors.white70,
+                          hintStyle: GoogleFonts.archivo(
+                            color: AppTheme.secondaryText,
                             fontSize: 16,
                           ),
                           contentPadding: const EdgeInsets.symmetric(
@@ -163,15 +163,15 @@ class SignInPage extends StatelessWidget {
                     // Password Input Field
                     Obx(() => Container(
                       decoration: BoxDecoration(
-                        color: const Color(0xFF1A1A1A),
+                        color: AppTheme.surface,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: const Color(0xFF0F52BA).withOpacity(0.2),
+                          color: AppTheme.accent2.withOpacity(0.2),
                           width: 1,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: AppTheme.surface.withOpacity(0.2),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -180,9 +180,9 @@ class SignInPage extends StatelessWidget {
                       child: TextField(
                         controller: passwordController,
                         obscureText: obscurePassword.value,
-                        style: GoogleFonts.rubik(
+                        style: GoogleFonts.archivo(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: AppTheme.primaryText,
                           fontWeight: FontWeight.w400,
                         ),
                         decoration: InputDecoration(
@@ -194,7 +194,7 @@ class SignInPage extends StatelessWidget {
                             child: FaIcon(
                               FontAwesomeIcons.lock,
                               size: 18,
-                              color: const Color(0xFF87CEEB),
+                              color: AppTheme.accent1,
                             ),
                           ),
                           suffixIcon: GestureDetector(
@@ -206,7 +206,7 @@ class SignInPage extends StatelessWidget {
                                     ? FontAwesomeIcons.eyeSlash
                                     : FontAwesomeIcons.eye,
                                 size: 16,
-                                color: Colors.white60,
+                                color: AppTheme.secondaryText,
                               ),
                             ),
                           ),
@@ -221,21 +221,21 @@ class SignInPage extends StatelessWidget {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide(
-                              color: const Color(0xFF0F52BA),
+                              color: AppTheme.accent2,
                               width: 2,
                             ),
                           ),
-                          labelStyle: GoogleFonts.rubik(
-                            color: const Color(0xFF87CEEB),
+                          labelStyle: GoogleFonts.archivo(
+                            color: AppTheme.accent1,
                             fontSize: 16,
                           ),
-                          floatingLabelStyle: GoogleFonts.rubik(
-                            color: const Color(0xFF87CEEB),
+                          floatingLabelStyle: GoogleFonts.archivo(
+                            color: AppTheme.accent1,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
-                          hintStyle: GoogleFonts.rubik(
-                            color: Colors.white70,
+                          hintStyle: GoogleFonts.archivo(
+                            color: AppTheme.secondaryText,
                             fontSize: 16,
                           ),
                           contentPadding: const EdgeInsets.symmetric(
@@ -262,12 +262,12 @@ class SignInPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 18),
                         decoration: BoxDecoration(
                           color: controller.isLoading.value
-                              ? const Color(0xFF1A1A1A)
-                              : const Color(0xFF0F52BA),
+                              ? AppTheme.surface
+                              : AppTheme.accent2,
                           borderRadius: BorderRadius.circular(16),
                           border: controller.isLoading.value
                               ? Border.all(
-                            color: const Color(0xFF0F52BA).withOpacity(0.3),
+                            color: AppTheme.accent2.withOpacity(0.3),
                             width: 1,
                           )
                               : null,
@@ -275,7 +275,7 @@ class SignInPage extends StatelessWidget {
                               ? []
                               : [
                             BoxShadow(
-                              color: const Color(0xFF0F52BA).withOpacity(0.3),
+                              color: AppTheme.accent2.withOpacity(0.3),
                               blurRadius: 12,
                               offset: const Offset(0, 4),
                             ),
@@ -291,17 +291,17 @@ class SignInPage extends StatelessWidget {
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation(
-                                  Color(0xFF87CEEB),
+                                  AppTheme.accent1,
                                 ),
                               ),
                             ),
                             const SizedBox(width: 12),
                             Text(
                               "Signing In...",
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.archivo(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white70,
+                                color: AppTheme.secondaryText,
                               ),
                             ),
                           ]
@@ -309,15 +309,15 @@ class SignInPage extends StatelessWidget {
                             const FaIcon(
                               FontAwesomeIcons.arrowRightToBracket,
                               size: 18,
-                              color: Colors.white,
+                              color: AppTheme.primaryText,
                             ),
                             const SizedBox(width: 12),
                             Text(
                               "Sign In",
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.archivo(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                                color: AppTheme.primaryText,
                               ),
                             ),
                           ],
@@ -333,18 +333,18 @@ class SignInPage extends StatelessWidget {
                       child: RichText(
                         text: TextSpan(
                           text: "New to Treasure Hunt? ",
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.archivo(
                             fontSize: 16,
-                            color: Colors.white70,
+                            color: AppTheme.secondaryText,
                             fontWeight: FontWeight.w400,
                           ),
                           children: [
                             TextSpan(
                               text: "Create Account",
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.archivo(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: const Color(0xFF87CEEB),
+                                color: AppTheme.accent1,
                               ),
                             ),
                           ],

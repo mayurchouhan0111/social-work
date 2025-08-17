@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:treasurehunt/app/controllers/item_claims_controller.dart';
 import 'package:treasurehunt/app/models/claim_model.dart';
+import 'package:treasurehunt/app/app_theme.dart';
 
 class ItemClaimsPage extends StatelessWidget {
   const ItemClaimsPage({super.key});
@@ -11,20 +12,20 @@ class ItemClaimsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ItemClaimsController());
     return Scaffold(
-      backgroundColor: const Color(0xFF000000),
+      backgroundColor: AppTheme.background,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A1A1A),
+        backgroundColor: AppTheme.surface,
         elevation: 0,
         leading: Container(
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: const Color(0xFF0F52BA).withOpacity(0.1),
+            color: AppTheme.accent2.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Color(0xFF87CEEB),
+              color: AppTheme.accent1,
               size: 20,
             ),
             onPressed: () => Get.back(),
@@ -37,14 +38,14 @@ class ItemClaimsPage extends StatelessWidget {
               height: 40,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFF0F52BA), Color(0xFF87CEEB)],
+                  colors: [AppTheme.accent2, AppTheme.accent1],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF0F52BA).withOpacity(0.3),
+                    color: AppTheme.accent2.withOpacity(0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -52,7 +53,7 @@ class ItemClaimsPage extends StatelessWidget {
               ),
               child: const Icon(
                 Icons.assignment_turned_in_rounded,
-                color: Colors.white,
+                color: AppTheme.primaryText,
                 size: 20,
               ),
             ),
@@ -62,17 +63,17 @@ class ItemClaimsPage extends StatelessWidget {
               children: [
                 Text(
                   'Item Claims',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
-                    color: Colors.white,
+                    color: AppTheme.primaryText,
                   ),
                 ),
                 Text(
                   'Manage claims',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.archivo(
                     fontSize: 12,
-                    color: const Color(0xFF87CEEB),
+                    color: AppTheme.accent1,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -88,7 +89,7 @@ class ItemClaimsPage extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   Colors.transparent,
-                  const Color(0xFF0F52BA).withOpacity(0.3),
+                  AppTheme.accent2.withOpacity(0.3),
                   Colors.transparent,
                 ],
               ),
@@ -102,9 +103,9 @@ class ItemClaimsPage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF000000),
+              AppTheme.background,
               Color(0xFF0A0A0A),
-              Color(0xFF000000),
+              AppTheme.background,
             ],
           ),
         ),
@@ -130,15 +131,15 @@ class ItemClaimsPage extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1A1A),
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: const Color(0xFF0F52BA).withOpacity(0.2),
+          color: AppTheme.accent2.withOpacity(0.2),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: AppTheme.surface.withOpacity(0.3),
             blurRadius: 15,
             offset: const Offset(0, 6),
           ),
@@ -157,13 +158,13 @@ class ItemClaimsPage extends StatelessWidget {
                   height: 50,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [Color(0xFF0F52BA), Color(0xFF87CEEB)],
+                      colors: [AppTheme.accent2, AppTheme.accent1],
                     ),
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: const Icon(
                     Icons.person_rounded,
-                    color: Colors.white,
+                    color: AppTheme.primaryText,
                     size: 24,
                   ),
                 ),
@@ -174,10 +175,10 @@ class ItemClaimsPage extends StatelessWidget {
                     children: [
                       Text(
                         'Claim from: ${claim.claimerId}',
-                        style: GoogleFonts.rubik(
+                        style: GoogleFonts.archivo(
                           fontWeight: FontWeight.w700,
                           fontSize: 16,
-                          color: Colors.white,
+                          color: AppTheme.primaryText,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -189,7 +190,7 @@ class ItemClaimsPage extends StatelessWidget {
                         ),
                         child: Text(
                           claim.status.toUpperCase(),
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.archivo(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: _getStatusColor(claim.status),
@@ -208,10 +209,10 @@ class ItemClaimsPage extends StatelessWidget {
             if (claim.answers.isNotEmpty) ...[
               Text(
                 'Answers:',
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.archivo(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF87CEEB),
+                  color: AppTheme.accent1,
                 ),
               ),
               const SizedBox(height: 12),
@@ -219,10 +220,10 @@ class ItemClaimsPage extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF000000),
+                  color: AppTheme.background,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: const Color(0xFF0F52BA).withOpacity(0.2),
+                    color: AppTheme.accent2.withOpacity(0.2),
                   ),
                 ),
                 child: Column(
@@ -240,7 +241,7 @@ class ItemClaimsPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => controller.approveClaim(claim),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0F52BA),
+                      backgroundColor: AppTheme.accent2,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -252,14 +253,14 @@ class ItemClaimsPage extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.check_circle_rounded,
-                          color: Colors.white,
+                          color: AppTheme.primaryText,
                           size: 18,
                         ),
                         const SizedBox(width: 8),
                         Text(
                           'Approve',
-                          style: GoogleFonts.rubik(
-                            color: Colors.white,
+                          style: GoogleFonts.archivo(
+                            color: AppTheme.primaryText,
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                           ),
@@ -273,7 +274,7 @@ class ItemClaimsPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => controller.rejectClaim(claim),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
+                      backgroundColor: AppTheme.error,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -285,14 +286,14 @@ class ItemClaimsPage extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.cancel_rounded,
-                          color: Colors.white,
+                          color: AppTheme.primaryText,
                           size: 18,
                         ),
                         const SizedBox(width: 8),
                         Text(
                           'Reject',
-                          style: GoogleFonts.rubik(
-                            color: Colors.white,
+                          style: GoogleFonts.archivo(
+                            color: AppTheme.primaryText,
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                           ),
@@ -322,16 +323,16 @@ class ItemClaimsPage extends StatelessWidget {
             width: 20,
             height: 20,
             decoration: BoxDecoration(
-              color: const Color(0xFF87CEEB).withOpacity(0.2),
+              color: AppTheme.accent1.withOpacity(0.2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Center(
               child: Text(
                 '${entry.key + 1}',
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.archivo(
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF87CEEB),
+                  color: AppTheme.accent1,
                 ),
               ),
             ),
@@ -340,8 +341,8 @@ class ItemClaimsPage extends StatelessWidget {
           Expanded(
             child: Text(
               entry.value.toString(),
-              style: GoogleFonts.rubik(
-                color: Colors.white,
+              style: GoogleFonts.archivo(
+                color: AppTheme.primaryText,
                 fontSize: 14,
                 height: 1.4,
               ),
@@ -356,13 +357,13 @@ class ItemClaimsPage extends StatelessWidget {
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'approved':
-        return Colors.green;
+        return AppTheme.success;
       case 'rejected':
-        return Colors.red;
+        return AppTheme.error;
       case 'pending':
-        return Colors.orange;
+        return AppTheme.accent2;
       default:
-        return const Color(0xFF87CEEB);
+        return AppTheme.accent1;
     }
   }
 
@@ -377,35 +378,35 @@ class ItemClaimsPage extends StatelessWidget {
               width: 120,
               height: 120,
               decoration: BoxDecoration(
-                color: const Color(0xFF0F52BA).withOpacity(0.1),
+                color: AppTheme.accent2.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(60),
                 border: Border.all(
-                  color: const Color(0xFF0F52BA).withOpacity(0.2),
+                  color: AppTheme.accent2.withOpacity(0.2),
                   width: 2,
                 ),
               ),
               child: const Icon(
                 Icons.assignment_late_outlined,
                 size: 60,
-                color: Color(0xFF87CEEB),
+                color: AppTheme.accent1,
               ),
             ),
             const SizedBox(height: 32),
             Text(
               'No claims yet',
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
-                color: Colors.white,
+                color: AppTheme.primaryText,
               ),
             ),
             const SizedBox(height: 12),
             Text(
               'Claims for this item will appear here\nonce users submit them',
               textAlign: TextAlign.center,
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.archivo(
                 fontSize: 16,
-                color: const Color(0xFF87CEEB),
+                color: AppTheme.accent1,
                 height: 1.4,
               ),
             ),

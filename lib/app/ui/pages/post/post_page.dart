@@ -156,7 +156,7 @@ class PostPage extends StatelessWidget {
           color: const Color(0xFF1A1A1A),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: AppTheme.primaryColor.withOpacity(0.3),
+            color: AppTheme.accent2.withOpacity(0.3),
             width: 2,
           ),
           boxShadow: [
@@ -181,7 +181,7 @@ class PostPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation(AppTheme.primaryColor),
+          valueColor: AlwaysStoppedAnimation(AppTheme.accent2),
         ),
         const SizedBox(height: 16),
         Text(
@@ -278,13 +278,13 @@ class PostPage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppTheme.primaryColor.withOpacity(0.2),
+            color: AppTheme.accent2.withOpacity(0.2),
             borderRadius: BorderRadius.circular(16),
           ),
           child: FaIcon(
             FontAwesomeIcons.cloudArrowUp,
             size: 32,
-            color: AppTheme.primaryColor,
+            color: AppTheme.accent2,
           ),
         ),
         const SizedBox(height: 20),
@@ -381,7 +381,7 @@ class PostPage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 24),
         decoration: BoxDecoration(
-          color: AppTheme.primaryColor.withOpacity(0.2),
+          color: AppTheme.accent2.withOpacity(0.2),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -389,7 +389,7 @@ class PostPage extends StatelessWidget {
             FaIcon(
               icon,
               size: 32,
-              color: AppTheme.primaryColor,
+              color: AppTheme.accent2,
             ),
             const SizedBox(height: 12),
             Text(
@@ -513,7 +513,7 @@ class PostPage extends StatelessWidget {
             child: FaIcon(
               FontAwesomeIcons.layerGroup,
               size: 18,
-              color: AppTheme.primaryColor,
+              color: AppTheme.accent2,
             ),
           ),
           border: OutlineInputBorder(
@@ -521,7 +521,7 @@ class PostPage extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           labelStyle: GoogleFonts.inter(
-            color: AppTheme.primaryColor,
+            color: AppTheme.accent2,
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
@@ -592,7 +592,7 @@ class PostPage extends StatelessWidget {
             child: FaIcon(
               icon,
               size: 18,
-              color: AppTheme.primaryColor,
+              color: AppTheme.accent2,
             ),
           ),
           border: OutlineInputBorder(
@@ -600,7 +600,7 @@ class PostPage extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           labelStyle: GoogleFonts.inter(
-            color: AppTheme.primaryColor,
+            color: AppTheme.accent2,
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
@@ -645,7 +645,7 @@ class PostPage extends StatelessWidget {
                 FaIcon(
                   FontAwesomeIcons.locationDot,
                   size: 18,
-                  color: AppTheme.primaryColor,
+                  color: AppTheme.accent2,
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -653,7 +653,7 @@ class PostPage extends StatelessWidget {
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: AppTheme.primaryColor,
+                    color: AppTheme.accent2,
                   ),
                 ),
               ],
@@ -667,7 +667,7 @@ class PostPage extends StatelessWidget {
                   height: 16,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation(AppTheme.primaryColor),
+                    valueColor: AlwaysStoppedAnimation(AppTheme.accent2),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -725,7 +725,7 @@ class PostPage extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: AppTheme.primaryColor,
+              color: AppTheme.accent2,
             ),
           ),
           const SizedBox(height: 16),
@@ -856,7 +856,7 @@ class PostPage extends StatelessWidget {
           icon: const Icon(Icons.add, color: Colors.white),
           label: Text("Add Question", style: GoogleFonts.inter(color: Colors.white)),
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppTheme.primaryColor,
+            backgroundColor: AppTheme.accent2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -882,7 +882,7 @@ class PostPage extends StatelessWidget {
             style: GoogleFonts.inter(color: Colors.white),
             decoration: InputDecoration(
               labelText: "Question ${index + 1}",
-              labelStyle: GoogleFonts.inter(color: AppTheme.primaryColor),
+              labelStyle: GoogleFonts.inter(color: AppTheme.accent2),
               hintText: "e.g., What color is the item?",
               hintStyle: GoogleFonts.inter(color: const Color(0xFF9E9E9E)),
               border: InputBorder.none,
@@ -895,7 +895,7 @@ class PostPage extends StatelessWidget {
             style: GoogleFonts.inter(color: Colors.white),
             decoration: InputDecoration(
               labelText: "Answer ${index + 1}",
-              labelStyle: GoogleFonts.inter(color: AppTheme.primaryColor),
+              labelStyle: GoogleFonts.inter(color: AppTheme.accent2),
               hintText: "e.g., Blue",
               hintStyle: GoogleFonts.inter(color: const Color(0xFF9E9E9E)),
               border: InputBorder.none,
@@ -942,7 +942,7 @@ class PostPage extends StatelessWidget {
           gradient: controller.isUploading.value || controller.isUploadingImage.value
               ? null
               : LinearGradient(
-            colors: [AppTheme.primaryColor, AppTheme.accentColor],
+            colors: [AppTheme.accent2, AppTheme.accent1],
           ),
           color: controller.isUploading.value || controller.isUploadingImage.value
               ? const Color(0xFF2A2A2A)
@@ -952,7 +952,7 @@ class PostPage extends StatelessWidget {
               ? []
               : [
             BoxShadow(
-              color: AppTheme.primaryColor.withOpacity(0.3),
+              color: AppTheme.accent2.withOpacity(0.3),
               blurRadius: 15,
               offset: const Offset(0, 8),
             ),
@@ -1008,13 +1008,13 @@ class PostPage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppTheme.primaryColor.withOpacity(0.2),
+            color: AppTheme.accent2.withOpacity(0.2),
             borderRadius: BorderRadius.circular(16),
           ),
           child: FaIcon(
             FontAwesomeIcons.cloudArrowUp,
             size: 32,
-            color: AppTheme.primaryColor,
+            color: AppTheme.accent2,
           ),
         ),
         const SizedBox(height: 20),

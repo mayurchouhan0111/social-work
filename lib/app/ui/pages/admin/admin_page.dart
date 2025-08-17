@@ -163,7 +163,7 @@ class AdminPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: controller.selectedTab.value == 0
-                      ? AppTheme.primaryColor
+                      ? AppTheme.accent2
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -188,7 +188,7 @@ class AdminPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: controller.selectedTab.value == 1
-                      ? AppTheme.primaryColor
+                      ? AppTheme.accent2
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -213,7 +213,7 @@ class AdminPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: controller.selectedTab.value == 2
-                      ? AppTheme.primaryColor
+                      ? AppTheme.accent2
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -238,7 +238,7 @@ class AdminPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: controller.selectedTab.value == 3
-                      ? AppTheme.primaryColor
+                      ? AppTheme.accent2
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -397,7 +397,7 @@ class AdminPage extends StatelessWidget {
               const Spacer(),
               IconButton(
                 onPressed: () => _showIdCard(user.identityCardImageUrl ?? ''),
-                icon: const Icon(Icons.credit_card, color: AppTheme.primaryColor),
+                icon: const Icon(Icons.credit_card, color: AppTheme.accent2),
               ),
             ],
           ),
@@ -486,7 +486,7 @@ class AdminPage extends StatelessWidget {
               const Spacer(),
               IconButton(
                 onPressed: () => _showIdCard(user.identityCardImageUrl ?? ''),
-                icon: const Icon(Icons.credit_card, color: AppTheme.primaryColor),
+                icon: const Icon(Icons.credit_card, color: AppTheme.accent2),
               ),
             ],
           ),
@@ -769,7 +769,7 @@ class AdminPage extends StatelessWidget {
                         FaIcon(
                           FontAwesomeIcons.locationDot,
                           size: 14,
-                          color: AppTheme.primaryColor,
+                          color: AppTheme.accent2,
                         ),
                         const SizedBox(width: 8),
                         Text(
@@ -788,7 +788,7 @@ class AdminPage extends StatelessWidget {
                           FaIcon(
                             FontAwesomeIcons.phone,
                             size: 14,
-                            color: AppTheme.primaryColor,
+                            color: AppTheme.accent2,
                           ),
                           const SizedBox(width: 8),
                           Text(
@@ -995,7 +995,7 @@ class AdminPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(AppTheme.primaryColor),
+            valueColor: AlwaysStoppedAnimation(AppTheme.accent2),
           ),
           const SizedBox(height: 24),
           Text(

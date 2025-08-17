@@ -26,14 +26,13 @@ Future<void> main() async {
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwb2JqeXN0cHF0bWhmZmRqcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxMDk2NzIsImV4cCI6MjA3MDY4NTY3Mn0.F_-5Myzq4ITOHpIcS2LAqdO5THyMyPKHu5nlhKsRGtQ',
   );
 
-  // Initialize controllers
-  Get.put(AuthController());
-
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +46,6 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       defaultTransition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 300),
-);
+    );
   }
 }
